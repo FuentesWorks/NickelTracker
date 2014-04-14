@@ -34,7 +34,7 @@ ServerName      www.mydomain.com
 ServerAdmin     me@mydomain.com
 ```
 
-Save the file by pressing `Ctrl+X` and the `Y`.
+Save the file by pressing `Ctrl+X` and then `Y`.
 
 ### 3. Execute the script ###
 To run the script, you must first set it as executable:

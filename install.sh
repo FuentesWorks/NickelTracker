@@ -40,9 +40,10 @@ sudo a2ensite NickelTracker
 sudo service apache2 restart
 
 echo - Fix Permissions -
-cd ..
-sudo chmod 777 -R www
-cd www
+echo Skiping..
+#cd ..
+#sudo chmod 777 -R www
+#cd www
 
 echo -e "\e[1m--- Install Symfony on NickelTracker ---\e[0m"
 echo - Download Composer -
