@@ -10,7 +10,15 @@ class DashboardController extends Controller
 {
     public function homeAction()
     {
-        return $this->render('FuentesWorksNickelTrackerBundle:Dashboard:dashboard.html.twig');
+        $accounts = array();
+        $categories = array();
+        $transactions = array();
+
+        return $this->render('FuentesWorksNickelTrackerBundle:Dashboard:dashboard.html.twig',
+            array('accounts' => $accounts,
+                  'categories' => $categories,
+                  'transactions' => $transactions
+            ));
     }
 
 }
