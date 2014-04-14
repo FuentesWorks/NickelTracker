@@ -14,9 +14,10 @@ Install git and prepare the installation directory:
 	sudo chmod 777 -R /var/www
 	cd /var/www
 
-Now pull the most recent version of the installation script:
+Now pull the most recent version of the installation script and go into the cloned folder:
 
-	git clone https://github.com/FuentesWorks/NickelTracker .
+	git clone https://github.com/FuentesWorks/NickelTracker
+	cd NickelTracker
 
 
 ### 2. Configure your VirtualHost ###
