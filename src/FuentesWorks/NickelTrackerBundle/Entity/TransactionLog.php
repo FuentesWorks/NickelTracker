@@ -37,6 +37,11 @@ class TransactionLog implements TransactionInterface
         return $this->getAccountId()->getName();
     }
 
+    public function getType()
+    {
+        return $this->type;
+    }
+
 
     #########################
     ## GETTERs AND SETTERs ##
