@@ -1,0 +1,65 @@
+<div class="col-sm-3 col-md-2 sidebar">
+    <!-- start: sidebar menu -->
+    <ul class="nav nav-sidebar">
+        <li {% if active == 'dashboard' %}class="active"{% endif %}><a href="#">Dashboard</a></li>
+        <li {% if active == 'accounts' %}class="active"{% endif %}><a href="#">Accounts</a></li>
+        <li {% if active == 'categories' %}class="active"{% endif %}><a href="#">Categories</a></li>
+        <li {% if active == 'transactions' %}class="active"{% endif %}><a href="#">Transactions</a></li>
+    </ul>
+    <!-- end: sidebar menu -->
+
+    <!-- start: accordion -->
+    <div class="panel-group" id="accordion">
+        <!-- start: new income -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-income">
+                        <span class="glyphicon glyphicon-plus"></span> New Income</a>
+                </h4>
+            </div>
+            <div id="collapse-income" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>Some form goes in here..</p>
+                </div>
+            </div>
+        </div>
+        <!-- end: new income -->
+        <!-- start: new income -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-expense">
+                        <span class="glyphicon glyphicon-minus"></span> New Expense</a>
+                </h4>
+            </div>
+            <div id="collapse-expense" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>Some form goes in here..</p>
+                </div>
+            </div>
+        </div>
+        <!-- end: new income -->
+        <!-- start: new transfer -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-transfer">
+                        <span class="glyphicon glyphicon-arrow-right"></span> New Transfer</a>
+                </h4>
+            </div>
+            <div id="collapse-transfer" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>Some form goes in here..</p>
+                </div>
+            </div>
+        </div>
+        <!-- end: new transfer -->
+    </div>
+    <!-- end: accordion -->
+
+    <p class="text-center">
+        <small>by <a href="mailto:me@edmundofuentes.com">Edmundo Fuentes</a><br>v2014.15.02</small>
+    </p>
+
+</div>

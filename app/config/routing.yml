@@ -1,0 +1,3 @@
+fuentesworks_nickeltracker:
+    resource: "@FuentesWorksNickelTrackerBundle/Resources/config/routing.yml"
+    prefix:   /

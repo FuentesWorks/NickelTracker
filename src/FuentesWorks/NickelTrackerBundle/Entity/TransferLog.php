@@ -1,0 +1,58 @@
+<?php
+
+namespace FuentesWorks\NickelTrackerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="TransferLogs")
+ */
+class TransferLog
+{
+    protected $transferLogId;
+
+    protected $type;
+
+    protected $amount;
+
+    protected $description;
+
+    protected $date;
+
+    protected $accountId;
+
+    protected $categoryId;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="payPalLogs")
+     * @ORM\JoinColumn(name="clientId", referencedColumnName="clientId")
+     */
+    protected $clientId;
+
+    /**
+     * Set clientId
+     *
+     * @param Client $clientId
+     * @return PayPalLog
+     */
+    public function setClientId(Client $clientId = null)
+    {
+        $this->clientId = $clientId;
+
+        return $this;
+    }
+
+    /**
+     * Get clientId
+     *
+     * @return Client
+     */
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
+
+}

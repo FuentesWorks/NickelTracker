@@ -1,0 +1,12 @@
+<VirtualHost *:80>
+ServerName      www.mydomain.com
+ServerAdmin     me@mydomain.com
+ServerSignature email
+DocumentRoot    /var/www/NickelTracker/web
+RewriteEngine   On
+<Directory /var/www/NickelTracker/web>
+AllowOverride   All
+</Directory>
+#CustomLog       logs/NickelTracker.access.log combined
+#ErrorLog        logs/NickelTracker.error.log
+</VirtualHost>
