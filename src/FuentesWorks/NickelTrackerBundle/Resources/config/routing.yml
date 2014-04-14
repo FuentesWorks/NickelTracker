@@ -13,3 +13,19 @@ logout:
 fuentesworks_nickeltracker_dashboard:
     pattern:    /
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Dashboard:home }
+
+## Sidebar
+fuentesworks_nickeltracker_new_income:
+    pattern:    /new/income
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newIncome }
+    methods:    [POST]
+
+fuentesworks_nickeltracker_new_expense:
+    pattern:    /new/expense
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newExpense }
+    methods:    [POST]
+
+fuentesworks_nickeltracker_new_transfer:
+    pattern:    /new/transfer
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newTransfer }
+    methods:    [POST]

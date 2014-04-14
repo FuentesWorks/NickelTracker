@@ -9,11 +9,13 @@ use FuentesWorks\NickelTrackerBundle\TransactionInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="TransferLogs")
+ * @ORM\Table(name="TransactionLogs")
  */
-class TransferLog implements TransactionInterface
+class TransactionLog implements TransactionInterface
 {
-    protected $transferLogId;
+    protected $transactionLogId;
+
+    protected $type;
 
     protected $amount;
 
@@ -21,9 +23,9 @@ class TransferLog implements TransactionInterface
 
     protected $date;
 
-    protected $sourceId;
+    protected $accountId;
 
-    protected $destinationId;
+    protected $categoryId;
 
 
     #########################
@@ -32,15 +34,7 @@ class TransferLog implements TransactionInterface
 
     public function getAccountName()
     {
-        $source = $this->getSouceId()->getName();
-        $destination = $this->getDestinationId()->getName();
-
-        return $source . ' => ' . $destination;
-    }
-
-    public function getType()
-    {
-        return 'T';
+        return $this->getAccountId()->getName();
     }
 
 

@@ -1,0 +1,61 @@
+{{ include('FuentesWorksNickelTrackerBundle:Layout:header.html.twig') }}
+{{ include('FuentesWorksNickelTrackerBundle:Layout:sidebar.html.twig', {'active': 'dashboard'}) }}
+
+<!-- start: content -->
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="sub-header">Transactions</h1>
+
+    <!-- start: filters -->
+
+    <!-- end: filters -->
+
+    {% if msg is defined %}
+    <div class="alert alert-dismissable alert-{{ msg.type }}">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        {{ msg.text|raw }}
+    </div>
+    {% endif %}
+
+    <!-- start: transaction list -->
+    {% if transactions %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Account</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% foreach transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.date|date('Y-m-d') }}</td>
+                    <td>
+                        {% if transaction.getType() == 'I' %}
+                            Income
+                        {% elseif transaction.getType() == 'E' %}
+                            Expense
+                        {% elseif transaction.getType() == 'T' %}
+                            Transfer
+                        {% endif %}
+                    </td>
+                    <td>{{ transaction.getAccountName() }}</td>
+                    <td>{{ transaction.description }}</td>
+                    <td>{{ transaction.amount }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <p class="text-center">showing the latest 20 transactions</p>
+    {% else %}
+        <p class="text-center">no transactions found</p>
+    {% endif %}
+    <!-- end: transaction list -->
+</div>
+<!-- end: content -->
+
+{{ include('FuentesWorksNickelTrackerBundle:Layout:footer.html.twig') }}

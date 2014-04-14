@@ -20,7 +20,50 @@
             </div>
             <div id="collapse-income" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p>Some form goes in here..</p>
+                    <form class="form-horizontal" role="form"
+                          action="{{ path('fuentesworks_nickeltracker_new_income') }}"
+                          method="post">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <select class="form-control" name="accountId">
+                                    <option value="0" selected>-- Account --</option>
+                                    {% for account in accounts %}
+                                        <option value="{{ account.accountId }}">{{ account.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <select class="form-control" name="categoryId">
+                                    <option value="0" selected>-- Category --</option>
+                                    {% for category in categories %}
+                                        <option value="{{ category.categoryId }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <textarea class="form-control" name="description" rows="2" placeholder="Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <input type="number" class="form-control" name="amount" placeholder="Amount" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <input type="date" class="form-control" name="date" placeholder="DD/MM/YYYY" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-default btn-block">Register!</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
