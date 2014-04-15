@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="NickelTracker">
+    <meta name="author" content="Edmundo Fuentes">
+    <meta name="apple-mobile-web-app-title" content="NickelTracker">
+    <link rel="shortcut icon" href="{{ asset('bundles/fuentesworksnickeltracker/img/NickelTracker-favico.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('bundles/fuentesworksnickeltracker/img/NickelTracker-iphone.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('bundles/fuentesworksnickeltracker/img/NickelTracker-iphone-retina.png') }}">
+
+    <title>NickelTracker</title>
+
+    <!-- Bootstrap core CSS + Theme -->
+    <link href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/simplex/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ asset('bundles/fuentesworksnickeltracker/css/dashboard.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><strong>NickelTracker</strong></a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-hidden-menu"><a href="#">Dashboard</a></li>
+                <li class="navbar-hidden-menu"><a href="#">Accounts</a></li>
+                <li class="navbar-hidden-menu"><a href="#">Categories</a></li>
+                <li class="navbar-hidden-menu"><a href="#">Transactions</a></li>
+                <li class="navbar-hidden-menu nav-divider"></li>
+                <li class="navbar-hidden-menu"><a href="#">
+                        <span class="glyphicon glyphicon-plus"></span> New Income
+                </a></li>
+                <li class="navbar-hidden-menu"><a href="#">
+                        <span class="glyphicon glyphicon-minus"></span> New Expense
+                    </a></li>
+                <li class="navbar-hidden-menu"><a href="#">
+                        <span class="glyphicon glyphicon-arrow-right"></span> New Transfer
+                    </a></li>
+                <li class="navbar-hidden-menu nav-divider"></li>
+                <li><a href="#">
+                        <span class="glyphicon glyphicon-off"></span> <span class="navbar-hidden-menu">Logout</span>
+                    </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">

@@ -27,7 +27,7 @@ class TransactionLog implements TransactionInterface
 
     /**
      * I: income, E: expense
-     * @ORM\Column(type="string", length=1 nullable=false)
+     * @ORM\Column(type="string", length=1, nullable=false)
      */
     protected $type;
 
@@ -54,11 +54,6 @@ class TransactionLog implements TransactionInterface
     public function getAccountName()
     {
         return $this->getAccountId()->getName();
-    }
-
-    public function getType()
-    {
-        return $this->type;
     }
 
 
@@ -146,6 +141,25 @@ class TransactionLog implements TransactionInterface
     public function getAmount()
     {
         return $this->amount;
+    }
+
+    /**
+     * @param string $type
+     * @return TransactionLog
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
