@@ -54,6 +54,31 @@ fuentesworks_nickeltracker_account_list:
 fuentesworks_nickeltracker_account_new:
     pattern:    /accounts/new
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Account:new }
+    methods:    [GET]
+
+fuentesworks_nickeltracker_account_new_process:
+    pattern:    /accounts/new
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Account:newProcess }
+    methods:    [POST]
+
+fuentesworks_nickeltracker_account_view:
+    pattern:    /accounts/view/{id}
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Account:view }
+
+fuentesworks_nickeltracker_account_edit:
+    pattern:    /accounts/edit/{id}
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Account:edit }
+    methods:    [GET]
+
+fuentesworks_nickeltracker_account_edit_process:
+    pattern:    /accounts/edit
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Account:editProcess }
+    methods:    [POST]
+
+fuentesworks_nickeltracker_account_delete:
+    pattern:    /accounts/delete
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Account:delete }
+    methods:    [POST]
 
 
 ## Category

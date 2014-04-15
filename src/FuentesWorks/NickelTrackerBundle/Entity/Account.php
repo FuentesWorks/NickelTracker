@@ -214,6 +214,34 @@ class Account
         }
     }
 
+    /**
+     * Get the human readable account type
+     * @return string
+     */
+    public function getTypeName()
+    {
+        switch($this->type)
+        {
+            case 'D':
+                $name = 'debit';
+                break;
+            case 'C':
+                $name = 'credit';
+                break;
+            case 'S':
+                $name = 'savings';
+                break;
+            case 'M':
+                $name = 'cash';
+                break;
+            default:
+                $name = 'error';
+                break;
+        }
+
+        return $name;
+    }
+
 
     #########################
     ## GETTERs AND SETTERs ##

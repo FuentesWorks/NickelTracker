@@ -1,0 +1,80 @@
+{{ include('FuentesWorksNickelTrackerBundle:Layout:header.html.twig') }}
+{{ include('FuentesWorksNickelTrackerBundle:Layout:sidebar.html.twig', {'active': 'accounts'}) }}
+
+<!-- start: content -->
+<div class="col-sm-9 col-sm-offset-3 main">
+    <h1 class="sub-header">Account: {{ account.name }}</h1>
+
+    {% if msg is defined %}
+        <div class="alert alert-dismissable alert-{{ msg.type }}">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ msg.text|raw }}
+        </div>
+    {% endif %}
+
+    <form class="form-horizontal" role="form"
+            {% if mode == 'new' %}  action="{{ path('fuentesworks_nickeltracker_account_new_process') }}"
+            {% elseif mode == 'edit' %} action="{{ path('fuentesworks_nickeltracker_account_edit_process') }}"
+            {% endif %}
+          method="post">
+
+        <div class="form-group">
+            <label for="name" class="col-lg-2 control-label">Name</label>
+            <div class="col-lg-6">
+                {% if mode == 'new' or mode == 'edit' %}
+                    <input type="text" class="form-control" id="name" name="name" placeholder="name"
+                           value="{{ account.name }}" required>
+                {% else %}
+                    <p class="form-control-static">{{ account.name }}</p>
+                {% endif %}
+            </div>
+            <div class="col-lg-4">
+                <p class="form-control-static">
+                    <small>Account name (human-readable).</small>
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="name" class="col-lg-2 control-label">Type</label>
+            <div class="col-lg-6">
+                {% if mode == 'new' or mode == 'edit' %}
+                    <select class="form-control input-sm" name="type">
+                        <option value="D" {% if account.type == 'D' %}selected{% endif %}>Debit</option>
+                        <option value="C" {% if account.type == 'C' %}selected{% endif %}>Credit</option>
+                        <option value="S" {% if account.type == 'S' %}selected{% endif %}>Savings</option>
+                        <option value="M" {% if account.type == 'M' %}selected{% endif %}>Cash</option>
+                    </select>
+                {% else %}
+                    <p class="form-control-static">{{ account.getTypeName() }}</p>
+                {% endif %}
+            </div>
+            <div class="col-lg-4">
+                <p class="form-control-static">
+                    <small>Account type.</small>
+                </p>
+            </div>
+        </div>
+
+        {% if mode == 'new' or mode == 'edit' %}
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Save</button>
+        </div>
+        {% endif %}
+    </form>
+
+    <hr>
+
+    {% if mode == 'edit' %}
+    <form action="{{ path('fuentesworks_nickeltracker_account_delete') }}" method="get">
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger btn-block"
+               onclick="return confirm('Are you sure you want to delete the account \'{{ account.name }}\'?')">
+                Delete</button>
+        </div>
+    </form>
+    {% elseif %}
+</div>
+<!-- end: content -->
+
+{{ include('FuentesWorksNickelTrackerBundle:Layout:footer.html.twig') }}
