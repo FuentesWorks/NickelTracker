@@ -139,7 +139,7 @@ class TransactionController extends NickelTrackerController
             $id = substr($globalId, 1);
             $trans = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\TransferLog')
                 ->find( $id );
-        } elseif($globalId[0] == 'I' or $globalId[0] == 'E') {
+        } elseif($globalId[0] == 'I' || $globalId[0] == 'E') {
             // TransactionLog
             $id = substr($globalId, 1);
             $trans = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\TransactionLog')
