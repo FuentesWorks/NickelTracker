@@ -57,19 +57,19 @@
             <tbody>
             {% for transaction in transactions %}
             <tr>
-                <td>{{ transaction.date|date('Y-m-d') }}</td>
+                <td>{{ transaction.date|date('Y-M-d') }}</td>
                 <td>
                     {% if transaction.getType() == 'I' %}
-                        Income
+                        <span class="glyphicon glyphicon-plus"></span>
                     {% elseif transaction.getType() == 'E' %}
-                        Expense
+                        <span class="glyphicon glyphicon-minus"></span>
                     {% elseif transaction.getType() == 'T' %}
-                        Transfer
+                        <span class="glyphicon glyphicon-arrow-right"></span>
                     {% endif %}
                 </td>
                 <td>{{ transaction.getAccountName() }}</td>
                 <td>{{ transaction.description }}</td>
-                <td>{{ transaction.amount }}</td>
+                <td>${{ transaction.amount|number_format(0, '.', ',') }}</td>
             </tr>
             {% endfor %}
             </tbody>
