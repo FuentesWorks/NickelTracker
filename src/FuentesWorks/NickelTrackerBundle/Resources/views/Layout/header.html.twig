@@ -38,22 +38,23 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="navbar-hidden-menu"><a href="#">Dashboard</a></li>
+                <li class="navbar-hidden-menu">
+                    <a href="{{ path('fuentesworks_nickeltracker_dashboard') }}">Dashboard</a></li>
                 <li class="navbar-hidden-menu"><a href="#">Accounts</a></li>
                 <li class="navbar-hidden-menu"><a href="#">Categories</a></li>
                 <li class="navbar-hidden-menu"><a href="#">Transactions</a></li>
                 <li class="navbar-hidden-menu nav-divider"></li>
-                <li class="navbar-hidden-menu"><a href="#">
+                <li class="navbar-hidden-menu"><a href="{{ path('fuentesworks_nickeltracker_new_income') }}">
                         <span class="glyphicon glyphicon-plus"></span> New Income
                 </a></li>
-                <li class="navbar-hidden-menu"><a href="#">
+                <li class="navbar-hidden-menu"><a href="{{ path('fuentesworks_nickeltracker_new_expense') }}">
                         <span class="glyphicon glyphicon-minus"></span> New Expense
                     </a></li>
-                <li class="navbar-hidden-menu"><a href="#">
+                <li class="navbar-hidden-menu"><a href="{{ path('fuentesworks_nickeltracker_new_transfer') }}">
                         <span class="glyphicon glyphicon-arrow-right"></span> New Transfer
                     </a></li>
                 <li class="navbar-hidden-menu nav-divider"></li>
-                <li><a href="#">
+                <li><a href="{{ path('logout') }}">
                         <span class="glyphicon glyphicon-off"></span> <span class="navbar-hidden-menu">Logout</span>
                     </a></li>
             </ul>
