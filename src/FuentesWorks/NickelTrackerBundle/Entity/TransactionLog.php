@@ -56,6 +56,11 @@ class TransactionLog implements TransactionInterface
         return $this->getAccountId()->getName();
     }
 
+    public function getGlobalId()
+    {
+        return $this->type . $this->transactionLogId;
+    }
+
 
     #########################
     ## OBJECT RELATIONSHIP ##

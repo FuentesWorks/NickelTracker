@@ -78,7 +78,7 @@ class TransactionController extends NickelTrackerController
 
 
 
-        return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_transaction_list', array('msg' => 'ok')));
+        return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_transaction_list', array('status' => 'ok')));
     }
 
     public function newExpenseProcessAction(Request $request)

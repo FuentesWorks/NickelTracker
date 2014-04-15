@@ -15,4 +15,6 @@ interface TransactionInterface
     public function getAccountName();
 
     public function getAmount();
+
+    public function getGlobalId();
 }

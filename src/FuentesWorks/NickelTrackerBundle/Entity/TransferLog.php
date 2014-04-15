@@ -57,6 +57,11 @@ class TransferLog implements TransactionInterface
         return 'T';
     }
 
+    public function getGlobalId()
+    {
+        return 'T' . $this->transferLogId;
+    }
+
 
     #########################
     ## OBJECT RELATIONSHIP ##
