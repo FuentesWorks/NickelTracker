@@ -27,7 +27,8 @@
                 {% for account in accounts %}
                 <tr>
                     <td>{{ account.getTypeName()|capitalize }}</td>
-                    <td>{{ account.name }}</td>
+                    <td><a href="{{ path('fuentesworks_nickeltracker_account_view', {'id': account.accountId}) }}">
+                        {{ account.name }}</a></td>
                     <td>${{ account.balance|number_format(0, '.', ',') }}</td>
                 </tr>
                 {% endfor %}
