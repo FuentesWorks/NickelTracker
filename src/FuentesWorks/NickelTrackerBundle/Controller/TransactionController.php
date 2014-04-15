@@ -63,7 +63,7 @@ class TransactionController extends NickelTrackerController
         $accountId = $request->request->get('accountId');
         $account = $em->getReference('FuentesWorks\NickelTrackerBundle\Entity\Account', $accountId);
         $categoryId = $request->request->get('categoryId');
-        $category = $em->getReference('FuentesWorks\NickelTrackerBundle\Entity\Account', $categoryId);
+        $category = $em->getReference('FuentesWorks\NickelTrackerBundle\Entity\Category', $categoryId);
 
         $trans->setType('I');
         $trans->setAccountId($account);
