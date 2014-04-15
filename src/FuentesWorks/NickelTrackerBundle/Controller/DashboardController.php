@@ -3,22 +3,18 @@
 namespace FuentesWorks\NickelTrackerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FuentesWorks\NickelTrackerBundle\Controller\NickelTrackerController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DashboardController extends Controller
+class DashboardController extends NickelTrackerController
 {
     public function homeAction()
     {
-        $accounts = array();
-        $categories = array();
         $transactions = array();
 
         return $this->render('FuentesWorksNickelTrackerBundle:Dashboard:dashboard.html.twig',
-            array('accounts' => $accounts,
-                  'categories' => $categories,
-                  'transactions' => $transactions
-            ));
+            array('transactions' => $transactions));
     }
 
 }

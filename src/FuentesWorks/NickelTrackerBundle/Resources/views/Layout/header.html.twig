@@ -21,6 +21,19 @@
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('bundles/fuentesworksnickeltracker/css/dashboard.css') }}" rel="stylesheet">
+
+    <!-- Force links to remain in the same window.. iOS compatibility mode -->
+    <script type="text/javascript">
+        var a=document.getElementsByTagName("a");
+        for(var i=0;i<a.length;i++)
+        {
+            a[i].onclick=function()
+            {
+                window.location=this.getAttribute("href");
+                return false
+            }
+        }
+    </script>
 </head>
 
 <body>

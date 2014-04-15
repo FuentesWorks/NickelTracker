@@ -10,16 +10,7 @@ class TransactionController extends Controller
 {
     public function newIncomeAction(Request $request)
     {
-        $doctrine = $this->getDoctrine();
-
-        // Load all accounts and categories
-        $accounts = $doctrine->getRepository('FuentesWorksNickelTrackerBundle:Account')
-            ->findAll();
-        $categories = $doctrine->getRepository('FuentesWorksNickelTrackerBundle:Category')
-            ->findAll();
-
-        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:new-income.html.twig',
-            array('accounts' => $accounts, 'categories' => $categories));
+        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:new-income.html.twig');
     }
 
     public function newExpenseAction(Request $request)
