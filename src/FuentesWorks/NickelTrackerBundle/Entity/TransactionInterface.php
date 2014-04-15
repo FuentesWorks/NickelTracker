@@ -1,6 +1,6 @@
 <?php
 
-namespace FuentesWorks\NickelTrackerBundle;
+namespace FuentesWorks\NickelTrackerBundle\Entity;
 
 interface TransactionInterface
 {
@@ -13,4 +13,6 @@ interface TransactionInterface
     public function getType();
 
     public function getAccountName();
+
+    public function getAmount();
 }

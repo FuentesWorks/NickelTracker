@@ -3,9 +3,9 @@
 namespace FuentesWorks\NickelTrackerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
-use FuentesWorks\NickelTrackerBundle\TransactionInterface;
+use FuentesWorks\NickelTrackerBundle\Entity\TransactionInterface;
+use FuentesWorks\NickelTrackerBundle\Entity\Account;
 
 /**
  * @ORM\Entity
@@ -13,17 +13,31 @@ use FuentesWorks\NickelTrackerBundle\TransactionInterface;
  */
 class TransferLog implements TransactionInterface
 {
+    #########################
+    ##      PROPERTIES     ##
+    #########################
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer", unique=TRUE)
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
     protected $transferLogId;
 
-    protected $amount;
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $amount = 0;
 
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
     protected $description;
 
+    /**
+     * @ORM\Column(type="date", nullable=false)
+     */
     protected $date;
-
-    protected $sourceId;
-
-    protected $destinationId;
 
 
     #########################
@@ -32,7 +46,7 @@ class TransferLog implements TransactionInterface
 
     public function getAccountName()
     {
-        $source = $this->getSouceId()->getName();
+        $source = $this->getSourceId()->getName();
         $destination = $this->getDestinationId()->getName();
 
         return $source . ' => ' . $destination;
@@ -45,36 +59,150 @@ class TransferLog implements TransactionInterface
 
 
     #########################
-    ## GETTERs AND SETTERs ##
+    ## OBJECT RELATIONSHIP ##
     #########################
 
     /**
-     * @ORM\ManyToOne(targetEntity="Client", inversedBy="payPalLogs")
-     * @ORM\JoinColumn(name="clientId", referencedColumnName="clientId")
+     * @ORM\ManyToOne(targetEntity="Account", inversedBy="sourceTransferLogs")
+     * @ORM\JoinColumn(name="sourceId", referencedColumnName="accountId")
      */
-    protected $clientId;
+    protected $sourceId;
 
     /**
-     * Set clientId
-     *
-     * @param Client $clientId
-     * @return PayPalLog
+     * @ORM\ManyToOne(targetEntity="Account", inversedBy="destinationTransferLogs")
+     * @ORM\JoinColumn(name="destinationId", referencedColumnName="accountId")
      */
-    public function setClientId(Client $clientId = null)
+    protected $destinationId;
+
+    /**
+     * Set sourceId
+     *
+     * @param Account $sourceId
+     * @return TransactionLog
+     */
+    public function setSourceId(Account $sourceId = null)
     {
-        $this->clientId = $clientId;
+        $this->sourceId = $sourceId;
 
         return $this;
     }
 
     /**
-     * Get clientId
+     * Get sourceId
      *
-     * @return Client
+     * @return Account
      */
-    public function getClientId()
+    public function getSourceId()
     {
-        return $this->clientId;
+        return $this->sourceId;
     }
+
+    /**
+     * Set destinationId
+     *
+     * @param Account $destinationId
+     * @return TransactionLog
+     */
+    public function setDestinationId(Account $destinationId = null)
+    {
+        $this->destinationId = $destinationId;
+
+        return $this;
+    }
+
+    /**
+     * Get destinationId
+     *
+     * @return Account
+     */
+    public function getDestinationId()
+    {
+        return $this->destinationId;
+    }
+
+
+    #########################
+    ## GETTERs AND SETTERs ##
+    #########################
+
+    /**
+     * @param integer $amount
+     * @return TransferLog
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * @param \DateTime $date
+     * @return TransferLog
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param string $description
+     * @return TransferLog
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param integer $transferLogId
+     * @return TransferLog
+     */
+    public function setTransferLogId($transferLogId)
+    {
+        $this->transferLogId = $transferLogId;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getTransferLogId()
+    {
+        return $this->transferLogId;
+    }
+
+
+
+
 
 }

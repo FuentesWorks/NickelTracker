@@ -1,0 +1,65 @@
+{{ include('FuentesWorksNickelTrackerBundle:Layout:header.html.twig') }}
+{{ include('FuentesWorksNickelTrackerBundle:Layout:sidebar.html.twig', {'active': 'dashboard', 'accounts': accounts, 'categories': categories}) }}
+
+<!-- start: content -->
+<div class="col-sm-9 col-sm-offset-3 main">
+    <h1 class="page-header">New Transaction</h1>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <span class="glyphicon glyphicon-plus"></span> New Income</a>
+            </h4>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" role="form"
+                  action="{{ path('fuentesworks_nickeltracker_new_income_process') }}"
+                  method="post">
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <select class="form-control input-sm" name="accountId">
+                            <option value="0" selected>-- Account --</option>
+                            {% for account in accounts %}
+                                <option value="{{ account.accountId }}">{{ account.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <select class="form-control input-sm" name="categoryId">
+                            <option value="0" selected>-- Category --</option>
+                            {% for category in categories %}
+                                <option value="{{ category.categoryId }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <textarea class="form-control input-sm" name="description" rows="2"
+                                  placeholder="Description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <input type="number" class="form-control input-sm" name="amount" placeholder="Amount" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <input type="date" class="form-control input-sm" name="date" placeholder="DD/MM/YYYY" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-default btn-block btn-sm">Save!</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end: content -->
+
+{{ include('FuentesWorksNickelTrackerBundle:Layout:footer.html.twig') }}

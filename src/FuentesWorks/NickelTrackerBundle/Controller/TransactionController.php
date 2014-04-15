@@ -10,7 +10,16 @@ class TransactionController extends Controller
 {
     public function newIncomeAction(Request $request)
     {
-        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:list.html.twig');
+        $doctrine = $this->getDoctrine();
+
+        // Load all accounts and categories
+        $accounts = $doctrine->getRepository('FuentesWorksNickelTrackerBundle:Account')
+            ->findAll();
+        $categories = $doctrine->getRepository('FuentesWorksNickelTrackerBundle:Category')
+            ->findAll();
+
+        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:new-income.html.twig',
+            array('accounts' => $accounts, 'categories' => $categories));
     }
 
     public function newExpenseAction(Request $request)
@@ -19,6 +28,21 @@ class TransactionController extends Controller
     }
 
     public function newTransferAction(Request $request)
+    {
+        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:list.html.twig');
+    }
+
+    public function newIncomeProcessAction(Request $request)
+    {
+        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:list.html.twig');
+    }
+
+    public function newExpenseProcessAction(Request $request)
+    {
+        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:list.html.twig');
+    }
+
+    public function newTransferProcessAction(Request $request)
     {
         return $this->render('FuentesWorksNickelTrackerBundle:Transaction:list.html.twig');
     }

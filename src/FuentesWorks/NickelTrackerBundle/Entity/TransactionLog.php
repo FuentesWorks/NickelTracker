@@ -3,9 +3,10 @@
 namespace FuentesWorks\NickelTrackerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
-use FuentesWorks\NickelTrackerBundle\TransactionInterface;
+use FuentesWorks\NickelTrackerBundle\Entity\TransactionInterface;
+use FuentesWorks\NickelTrackerBundle\Entity\Account;
+use FuentesWorks\NickelTrackerBundle\Entity\Category;
 
 /**
  * @ORM\Entity
@@ -13,19 +14,37 @@ use FuentesWorks\NickelTrackerBundle\TransactionInterface;
  */
 class TransactionLog implements TransactionInterface
 {
+    #########################
+    ##      PROPERTIES     ##
+    #########################
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer", unique=TRUE)
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
     protected $transactionLogId;
 
+    /**
+     * I: income, E: expense
+     * @ORM\Column(type="string", length=1 nullable=false)
+     */
     protected $type;
 
-    protected $amount;
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $amount = 0;
 
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
     protected $description;
 
+    /**
+     * @ORM\Column(type="date", nullable=false)
+     */
     protected $date;
-
-    protected $accountId;
-
-    protected $categoryId;
 
 
     #########################
@@ -44,36 +63,147 @@ class TransactionLog implements TransactionInterface
 
 
     #########################
-    ## GETTERs AND SETTERs ##
+    ## OBJECT RELATIONSHIP ##
     #########################
 
     /**
-     * @ORM\ManyToOne(targetEntity="Client", inversedBy="payPalLogs")
-     * @ORM\JoinColumn(name="clientId", referencedColumnName="clientId")
+     * @ORM\ManyToOne(targetEntity="Account", inversedBy="transactionLogs")
+     * @ORM\JoinColumn(name="accountId", referencedColumnName="accountId")
      */
-    protected $clientId;
+    protected $accountId;
 
     /**
-     * Set clientId
-     *
-     * @param Client $clientId
-     * @return PayPalLog
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="transactionLogs")
+     * @ORM\JoinColumn(name="categoryId", referencedColumnName="categoryId")
      */
-    public function setClientId(Client $clientId = null)
+    protected $categoryId;
+
+    /**
+     * Set accountId
+     *
+     * @param Account $accountId
+     * @return TransactionLog
+     */
+    public function setAccountId(Account $accountId = null)
     {
-        $this->clientId = $clientId;
+        $this->accountId = $accountId;
 
         return $this;
     }
 
     /**
-     * Get clientId
+     * Get accountId
      *
-     * @return Client
+     * @return Account
      */
-    public function getClientId()
+    public function getAccountId()
     {
-        return $this->clientId;
+        return $this->accountId;
     }
+
+    /**
+     * Set categoryId
+     *
+     * @param Category $categoryId
+     * @return TransactionLog
+     */
+    public function setCategoryId(Category $categoryId = null)
+    {
+        $this->categoryId= $categoryId;
+
+        return $this;
+    }
+
+    /**
+     * Get categoryId
+     *
+     * @return Category
+     */
+    public function getCategoryId()
+    {
+        return $this->categoryId;
+    }
+
+
+    #########################
+    ## GETTERs AND SETTERs ##
+    #########################
+
+    /**
+     * @param integer $amount
+     * @return TransactionLog
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * @param \DateTime $date
+     * @return TransactionLog
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param string $description
+     * @return TransactionLog
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param integer $transactionLogId
+     * @return TransactionLog
+     */
+    public function setTransactionLogId($transactionLogId)
+    {
+        $this->transactionLogId = $transactionLogId;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getTransactionLogId()
+    {
+        return $this->transactionLogId;
+    }
+
 
 }

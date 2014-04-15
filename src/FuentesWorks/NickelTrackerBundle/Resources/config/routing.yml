@@ -15,17 +15,34 @@ fuentesworks_nickeltracker_dashboard:
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Dashboard:home }
 
 ## Sidebar
+fuentesworks_nickeltracker_new_income_process:
+    pattern:    /new/income
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newIncomeProcess }
+    methods:    [POST]
+
+fuentesworks_nickeltracker_new_expense_process:
+    pattern:    /new/expense
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newExpenseProcess }
+    methods:    [POST]
+
+fuentesworks_nickeltracker_new_transfer_process:
+    pattern:    /new/transfer
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newTransferProcess }
+    methods:    [POST]
+
+## Header Toggle
 fuentesworks_nickeltracker_new_income:
     pattern:    /new/income
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newIncome }
-    methods:    [POST]
+    methods:    [GET]
 
 fuentesworks_nickeltracker_new_expense:
     pattern:    /new/expense
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newExpense }
-    methods:    [POST]
+    methods:    [GET]
 
 fuentesworks_nickeltracker_new_transfer:
     pattern:    /new/transfer
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newTransfer }
-    methods:    [POST]
+    methods:    [GET]
+
