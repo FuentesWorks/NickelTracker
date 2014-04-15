@@ -46,3 +46,11 @@ fuentesworks_nickeltracker_new_transfer:
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newTransfer }
     methods:    [GET]
 
+## Account
+fuentesworks_nickeltracker_account_list:
+    pattern:    /accounts
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Account:list }
+
+fuentesworks_nickeltracker_account_new:
+    pattern:    /accounts/new
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Account:new }

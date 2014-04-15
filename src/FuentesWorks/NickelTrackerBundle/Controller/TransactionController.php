@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class TransactionController extends Controller
+class TransactionController extends NickelTrackerController
 {
     public function newIncomeAction(Request $request)
     {
@@ -15,12 +15,12 @@ class TransactionController extends Controller
 
     public function newExpenseAction(Request $request)
     {
-        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:list.html.twig');
+        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:new-expense.html.twig');
     }
 
     public function newTransferAction(Request $request)
     {
-        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:list.html.twig');
+        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:new-transfer.html.twig');
     }
 
     public function newIncomeProcessAction(Request $request)

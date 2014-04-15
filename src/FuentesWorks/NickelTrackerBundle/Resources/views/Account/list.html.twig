@@ -38,7 +38,7 @@
                         {% endif %}
                     </td>
                     <td>{{ account.name }}</td>
-                    <td>{{ account.calculateBalance() }}</td>
+                    <td>--</td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -47,7 +47,13 @@
     {% else %}
         <p class="text-center">no accounts found</p>
     {% endif %}
-    <!-- end: transaction list -->
+    <!-- end: account list -->
+    <hr>
+    <form action="{{ path('fuentesworks_nickeltracker_account_new') }}" method="get">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Create New Account</button>
+        </div>
+    </form>
 </div>
 <!-- end: content -->
 
