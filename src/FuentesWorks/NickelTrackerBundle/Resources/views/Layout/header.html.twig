@@ -62,6 +62,11 @@
                 background-color: #f5f5f5;
                 border-right: 1px solid #eee;
             }
+            
+            /* Hide in desktop */
+            .navbar-hidden-menu {
+                display: none !important;
+            }
         }
 
         /* Sidebar navigation */
@@ -133,6 +138,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-hidden-menu"><a href="{{ path('slambo_map') }}">Map</a></li>
                 <li><a href="#">
                         <span class="glyphicon glyphicon-off"></span>
                     </a></li>
