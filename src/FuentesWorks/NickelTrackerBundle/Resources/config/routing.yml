@@ -118,7 +118,7 @@ fuentesworks_nickeltracker_category_delete:
 
 ## Transaction
 fuentesworks_nickeltracker_transaction_list:
-    pattern:    /transactions/{status}
+    pattern:    /transactions/status/{status}
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:list, status: null }
 
 fuentesworks_nickeltracker_transaction_delete:

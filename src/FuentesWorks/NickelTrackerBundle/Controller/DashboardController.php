@@ -16,6 +16,7 @@ class DashboardController extends NickelTrackerController
         $query = $repository->createQueryBuilder('t')
             ->setMaxResults(20)
             ->orderBy('t.date', 'DESC')
+            ->addOrderby('t.transactionLogId', 'DESC')
             ->getQuery();
         $transactions = $query->getResult();
 
