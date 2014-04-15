@@ -66,8 +66,8 @@
     <hr>
 
     {% if mode == 'view' %}
-        <a href="{{ path('fuentesworks_nickeltracker_account_edit', {'id': account.accountId}) }}">
-            Edit</a>
+        <a href="{{ path('fuentesworks_nickeltracker_account_edit', {'id': account.accountId}) }}"
+           class="btn btn-info btn-block">Edit</a>
     {% endif %}
 
     {% if mode == 'edit' %}
