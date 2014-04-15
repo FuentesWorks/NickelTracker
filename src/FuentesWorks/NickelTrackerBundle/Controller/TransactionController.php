@@ -13,12 +13,10 @@ class TransactionController extends NickelTrackerController
     {
         $repository = $this->getDoctrine()
             ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog');
-
         $query = $repository->createQueryBuilder('t')
             ->setMaxResults(50)
             ->orderBy('t.date', 'DESC')
             ->getQuery();
-
         $transactions = $query->getResult();
 
 

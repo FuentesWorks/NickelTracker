@@ -11,7 +11,13 @@ class DashboardController extends NickelTrackerController
 {
     public function homeAction()
     {
-        $transactions = array();
+        $repository = $this->getDoctrine()
+            ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog');
+        $query = $repository->createQueryBuilder('t')
+            ->setMaxResults(20)
+            ->orderBy('t.date', 'DESC')
+            ->getQuery();
+        $transactions = $query->getResult();
 
         return $this->render('FuentesWorksNickelTrackerBundle:Dashboard:dashboard.html.twig',
             array('transactions' => $transactions));
