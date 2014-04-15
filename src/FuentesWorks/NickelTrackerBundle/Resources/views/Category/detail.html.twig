@@ -1,9 +1,9 @@
 {{ include('FuentesWorksNickelTrackerBundle:Layout:header.html.twig') }}
-{{ include('FuentesWorksNickelTrackerBundle:Layout:sidebar.html.twig', {'active': 'accounts'}) }}
+{{ include('FuentesWorksNickelTrackerBundle:Layout:sidebar.html.twig', {'active': 'categories'}) }}
 
 <!-- start: content -->
 <div class="col-sm-9 col-sm-offset-3 main">
-    <h1 class="sub-header">Account: {{ account.name }}</h1>
+    <h1 class="sub-header">Category: {{ category.name }}</h1>
 
     {% if msg is defined %}
         <div class="alert alert-dismissable alert-{{ msg.type }}">
@@ -13,8 +13,8 @@
     {% endif %}
 
     <form class="form-horizontal" role="form"
-            {% if mode == 'new' %}  action="{{ path('fuentesworks_nickeltracker_account_new_process') }}"
-            {% elseif mode == 'edit' %} action="{{ path('fuentesworks_nickeltracker_account_edit_process') }}"
+            {% if mode == 'new' %}  action="{{ path('fuentesworks_nickeltracker_category_new_process') }}"
+            {% elseif mode == 'edit' %} action="{{ path('fuentesworks_nickeltracker_category_edit_process') }}"
             {% endif %}
           method="post">
 
@@ -23,42 +23,38 @@
             <div class="col-lg-6">
                 {% if mode == 'new' or mode == 'edit' %}
                     <input type="text" class="form-control" id="name" name="name" placeholder="name"
-                           value="{{ account.name }}" required>
+                           value="{{ category.name }}" required>
                 {% else %}
-                    <p class="form-control-static">{{ account.name }}</p>
+                    <p class="form-control-static">{{ category.name }}</p>
                 {% endif %}
             </div>
             <div class="col-lg-4">
                 <p class="form-control-static">
-                    <small>Account name (human-readable).</small>
+                    <small>Category name (human-readable).</small>
                 </p>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="type" class="col-lg-2 control-label">Type</label>
+            <label for="budget" class="col-lg-2 control-label">Budget</label>
             <div class="col-lg-6">
                 {% if mode == 'new' or mode == 'edit' %}
-                    <select class="form-control input-sm" name="type">
-                        <option value="D" {% if account.type == 'D' %}selected{% endif %}>Debit</option>
-                        <option value="C" {% if account.type == 'C' %}selected{% endif %}>Credit</option>
-                        <option value="S" {% if account.type == 'S' %}selected{% endif %}>Savings</option>
-                        <option value="M" {% if account.type == 'M' %}selected{% endif %}>Cash</option>
-                    </select>
+                    <input type="number" class="form-control" id="budget" name="budget" placeholder="budget"
+                           value="{{ category.budget }}" required>
                 {% else %}
-                    <p class="form-control-static">{{ account.getTypeName() }}</p>
+                    <p class="form-control-static">{{ category.budget }}</p>
                 {% endif %}
             </div>
             <div class="col-lg-4">
                 <p class="form-control-static">
-                    <small>Account type.</small>
+                    <small>Monthly allowed budget.</small>
                 </p>
             </div>
         </div>
 
         {% if mode == 'new' or mode == 'edit' %}
         <div class="form-group">
-            <input type="hidden" name="accountId" value="{{ account.accountId }}" />
+            <input type="hidden" name="categoryId" value="{{ category.categoryId }}" />
             <button type="submit" class="btn btn-primary btn-block">Save</button>
         </div>
         {% endif %}
@@ -67,16 +63,16 @@
     <hr>
 
     {% if mode == 'view' %}
-        <a href="{{ path('fuentesworks_nickeltracker_account_edit', {'id': account.accountId}) }}"
+        <a href="{{ path('fuentesworks_nickeltracker_category_edit', {'id': category.categoryId}) }}"
            class="btn btn-info btn-block">Edit</a>
     {% endif %}
 
     {% if mode == 'edit' %}
-    <form action="{{ path('fuentesworks_nickeltracker_account_delete') }}" method="post">
+    <form action="{{ path('fuentesworks_nickeltracker_category_delete') }}" method="post">
         <div class="form-group">
-            <input type="hidden" name="accountId" value="{{ account.accountId }}" />
+            <input type="hidden" name="categoryId" value="{{ category.categoryId }}" />
             <button type="submit" class="btn btn-danger btn-block"
-               onclick="return confirm('Are you sure you want to delete the account \'{{ account.name }}\'?')">
+               onclick="return confirm('Are you sure you want to delete the category \'{{ category.name }}\'?')">
                 Delete</button>
         </div>
     </form>

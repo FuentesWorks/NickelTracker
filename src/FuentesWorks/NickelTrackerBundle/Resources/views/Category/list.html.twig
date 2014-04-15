@@ -1,0 +1,51 @@
+{{ include('FuentesWorksNickelTrackerBundle:Layout:header.html.twig') }}
+{{ include('FuentesWorksNickelTrackerBundle:Layout:sidebar.html.twig', {'active': 'categories'}) }}
+
+<!-- start: content -->
+<div class="col-sm-9 col-sm-offset-3 main">
+    <h1 class="sub-header">Categories</h1>
+
+    {% if msg is defined %}
+        <div class="alert alert-dismissable alert-{{ msg.type }}">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ msg.text|raw }}
+        </div>
+    {% endif %}
+
+    <!-- start: categories list -->
+    {% if categories %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Budget</th>
+                    <th>Balance</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td><a href="{{ path('fuentesworks_nickeltracker_category_view', {'id': category.categoryId}) }}">
+                        {{ category.name }}</a></td>
+                    <td>${{ category.budget|number_format(0, '.', ',') }}</td>
+                    <td>--</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-center">no categories found</p>
+    {% endif %}
+    <!-- end: categories list -->
+    <hr>
+    <form action="{{ path('fuentesworks_nickeltracker_category_new') }}" method="get">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Create New Category</button>
+        </div>
+    </form>
+</div>
+<!-- end: content -->
+
+{{ include('FuentesWorksNickelTrackerBundle:Layout:footer.html.twig') }}

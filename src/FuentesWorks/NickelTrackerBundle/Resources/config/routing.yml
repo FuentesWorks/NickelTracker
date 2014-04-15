@@ -86,8 +86,37 @@ fuentesworks_nickeltracker_category_list:
     pattern:    /categories
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:list }
 
+fuentesworks_nickeltracker_category_new:
+    pattern:    /categories/new
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:new }
+    methods:    [GET]
 
-## Category
+fuentesworks_nickeltracker_category_new_process:
+    pattern:    /categories/new
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:newProcess }
+    methods:    [POST]
+
+fuentesworks_nickeltracker_category_view:
+    pattern:    /categories/view/{id}
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:view }
+
+fuentesworks_nickeltracker_category_edit:
+    pattern:    /categories/edit/{id}
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:edit }
+    methods:    [GET]
+
+fuentesworks_nickeltracker_category_edit_process:
+    pattern:    /categories/edit
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:editProcess }
+    methods:    [POST]
+
+fuentesworks_nickeltracker_category_delete:
+    pattern:    /categories/delete
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:delete }
+    methods:    [POST]
+
+
+## Transaction
 fuentesworks_nickeltracker_transaction_list:
     pattern:    /transactions
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:list }
