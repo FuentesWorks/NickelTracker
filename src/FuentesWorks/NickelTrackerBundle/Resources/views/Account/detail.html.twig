@@ -72,7 +72,7 @@
     {% endif %}
 
     {% if mode == 'edit' %}
-    <form action="{{ path('fuentesworks_nickeltracker_account_delete') }}" method="get">
+    <form action="{{ path('fuentesworks_nickeltracker_account_delete') }}" method="post">
         <div class="form-group">
             <input type="hidden" name="accountId" value="{{ account.accountId }}" />
             <button type="submit" class="btn btn-danger btn-block"
