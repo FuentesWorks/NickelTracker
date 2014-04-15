@@ -47,15 +47,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><strong>NickelTracker</strong></a>
+            <a class="navbar-brand" href="{{ path('fuentesworks_nickeltracker_dashboard') }}">
+                <strong>NickelTracker</strong></a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="navbar-hidden-menu">
                     <a href="{{ path('fuentesworks_nickeltracker_dashboard') }}">Dashboard</a></li>
-                <li class="navbar-hidden-menu"><a href="#">Accounts</a></li>
-                <li class="navbar-hidden-menu"><a href="#">Categories</a></li>
-                <li class="navbar-hidden-menu"><a href="#">Transactions</a></li>
+                <li class="navbar-hidden-menu">
+                    <a href="{{ path('fuentesworks_nickeltracker_account_list') }}">Accounts</a></li>
+                <li class="navbar-hidden-menu">
+                    <a href="{{ path('fuentesworks_nickeltracker_category_list') }}">Categories</a></li>
+                <li class="navbar-hidden-menu">
+                    <a href="{{ path('fuentesworks_nickeltracker_transaction_list') }}">Transactions</a></li>
                 <li class="navbar-hidden-menu nav-divider"></li>
                 <li class="navbar-hidden-menu"><a href="{{ path('fuentesworks_nickeltracker_new_income') }}">
                         <span class="glyphicon glyphicon-plus"></span> New Income

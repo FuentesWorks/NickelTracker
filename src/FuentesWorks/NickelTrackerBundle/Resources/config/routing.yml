@@ -54,3 +54,15 @@ fuentesworks_nickeltracker_account_list:
 fuentesworks_nickeltracker_account_new:
     pattern:    /accounts/new
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Account:new }
+
+
+## Category
+fuentesworks_nickeltracker_category_list:
+    pattern:    /categories
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:list }
+
+
+## Category
+fuentesworks_nickeltracker_transaction_list:
+    pattern:    /transactions
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:list }

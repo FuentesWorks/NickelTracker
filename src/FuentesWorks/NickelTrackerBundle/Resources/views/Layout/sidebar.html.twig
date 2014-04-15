@@ -1,10 +1,14 @@
 <div class="col-sm-3 sidebar">
     <!-- start: sidebar menu -->
     <ul class="nav nav-sidebar">
-        <li {% if active == 'dashboard' %}class="active"{% endif %}><a href="#">Dashboard</a></li>
-        <li {% if active == 'accounts' %}class="active"{% endif %}><a href="#">Accounts</a></li>
-        <li {% if active == 'categories' %}class="active"{% endif %}><a href="#">Categories</a></li>
-        <li {% if active == 'transactions' %}class="active"{% endif %}><a href="#">Transactions</a></li>
+        <li {% if active == 'dashboard' %}class="active"{% endif %}>
+            <a href="{{ path('fuentesworks_nickeltracker_dashboard') }}">Dashboard</a></li>
+        <li {% if active == 'accounts' %}class="active"{% endif %}>
+            <a href="{{ path('fuentesworks_nickeltracker_account_list') }}">Accounts</a></li>
+        <li {% if active == 'categories' %}class="active"{% endif %}>
+            <a href="{{ path('fuentesworks_nickeltracker_category_list') }}">Categories</a></li>
+        <li {% if active == 'transactions' %}class="active"{% endif %}>
+            <a href="{{ path('fuentesworks_nickeltracker_transaction_list') }}">Transactions</a></li>
     </ul>
     <!-- end: sidebar menu -->
 
