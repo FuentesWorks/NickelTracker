@@ -49,7 +49,7 @@
                     <td>
                         <form action="{{ path('fuentesworks_nickeltracker_transaction_delete') }}" method="post">
                             <div class="form-group">
-                                <input type="hidden" name="categoryId" value="{{ category.categoryId }}" />
+                                <input type="hidden" name="transactionId" value="{{ transaction.getGlobalId() }}" />
                                 <button type="submit" class="btn btn-danger btn-block"
                                         onclick="return confirm('Are you sure you want to delete the transaction \'{{ transaction.getGlobalId() }}\'?')">
                                     Delete</button>
