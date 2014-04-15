@@ -123,5 +123,5 @@ fuentesworks_nickeltracker_transaction_list:
 
 fuentesworks_nickeltracker_transaction_delete:
     pattern:    /transactions/delete
-    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:list, status: null }
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:delete }
     methods:    [POST]
