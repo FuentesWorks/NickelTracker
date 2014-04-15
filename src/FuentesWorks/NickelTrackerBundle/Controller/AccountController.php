@@ -64,4 +64,22 @@ class AccountController extends NickelTrackerController
                   'mode' => 'view'));
     }
 
+    public function editAction($id)
+    {
+        $account = $this->getDoctrine()->getRepository('FuentesWorksNickelTrackerBundle:Account')
+            ->find($id);
+
+        if(!$account)
+        {
+            $msg = array('type' => 'warning',
+                'text' => "<strong>Woah!</strong> Could not load account with id <strong>" . $id . "</strong>!");
+            return $this->render('FuentesWorksNickelTrackerBundle:Account:list.html.twig',
+                array('msg' => $msg));
+        }
+
+        return $this->render('FuentesWorksNickelTrackerBundle:Account:detail.html.twig',
+            array('account' => $account,
+                'mode' => 'edit'));
+    }
+
 }

@@ -65,6 +65,11 @@
 
     <hr>
 
+    {% if mode == 'view' %}
+        <a href="{{ path('fuentesworks_nickeltracker_account_edit', {'id': account.accountId}) }}">
+            Edit</a>
+    {% endif %}
+
     {% if mode == 'edit' %}
     <form action="{{ path('fuentesworks_nickeltracker_account_delete') }}" method="get">
         <div class="form-group">
