@@ -12,6 +12,24 @@
     </ul>
     <!-- end: sidebar menu -->
 
+    <div class="panel panel-default">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="{{ path('fuentesworks_nickeltracker_transaction_new_income') }}">
+                    <span class="glyphicon glyphicon-plus"></span> New Income</a>
+            </li>
+            <li class="list-group-item">
+                <a href="{{ path('fuentesworks_nickeltracker_transaction_new_income') }}">
+                    <span class="glyphicon glyphicon-minus"></span> New Expense</a>
+            </li>
+            <li class="list-group-item">
+                <a href="{{ path('fuentesworks_nickeltracker_transaction_new_income') }}">
+                    <span class="glyphicon glyphicon-arrow-right"></span> New Transfer</a>
+            </li>
+        </ul>
+    </div>
+
+    {# OLD METHOD: Accordion Panels.. sweet.
     <!-- start: accordion -->
     <div class="panel-group" id="accordion">
         <!-- start: new income -->
@@ -104,6 +122,7 @@
         <!-- end: new transfer -->
     </div>
     <!-- end: accordion -->
+    #}
 
     <p class="text-center">
         <small>by <a href="mailto:me@edmundofuentes.com">Edmundo Fuentes</a><br>v2014.15.02</small>
