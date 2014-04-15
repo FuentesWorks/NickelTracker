@@ -82,4 +82,65 @@ class AccountController extends NickelTrackerController
                 'mode' => 'edit'));
     }
 
+    public function editProcessAction(Request $request)
+    {
+        $id = $request->request->get('accountId');
+
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
+
+        $account = $doctrine->getRepository('FuentesWorksNickelTrackerBundle:Account')
+            ->find($id);
+
+        if(!$account)
+        {
+            $msg = array('type' => 'warning',
+                'text' => "<strong>Woah!</strong> Could not load account with id <strong>" . $id . "</strong>!");
+            return $this->render('FuentesWorksNickelTrackerBundle:Account:list.html.twig',
+                array('msg' => $msg));
+        }
+
+        $account->setName($request->request->get('name'));
+        $account->setType($request->request->get('type'));
+
+        $em->persist($account);
+        $em->flush();
+
+        $msg = array('type' => 'success',
+            'text' => "<strong>Woot!</strong> Account created successfully!");
+
+        return $this->render('FuentesWorksNickelTrackerBundle:Account:list.html.twig',
+            array('msg' => $msg));
+    }
+
+    public function deleteAction(Request $request)
+    {
+        $id = $request->request->get('accountId');
+
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
+
+        $account = $doctrine->getRepository('FuentesWorksNickelTrackerBundle:Account')
+            ->find($id);
+
+        if(!$account)
+        {
+            $msg = array('type' => 'warning',
+                'text' => "<strong>Woah!</strong> Could not load account with id <strong>" . $id . "</strong>!");
+            return $this->render('FuentesWorksNickelTrackerBundle:Account:list.html.twig',
+                array('msg' => $msg));
+        }
+
+        $em->remove($account);
+        $em->flush();
+
+        $msg = array('type' => 'success',
+                'text' => "<strong>Woot!</strong> Account deleted successfully!");
+        return $this->render('FuentesWorksNickelTrackerBundle:Account:list.html.twig',
+            array('msg' => $msg));
+
+    }
+
+
+
 }

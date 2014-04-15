@@ -58,6 +58,7 @@
 
         {% if mode == 'new' or mode == 'edit' %}
         <div class="form-group">
+            <input type="hidden" name="accountId" value="{{ account.accountId }}" />
             <button type="submit" class="btn btn-primary btn-block">Save</button>
         </div>
         {% endif %}
@@ -73,6 +74,7 @@
     {% if mode == 'edit' %}
     <form action="{{ path('fuentesworks_nickeltracker_account_delete') }}" method="get">
         <div class="form-group">
+            <input type="hidden" name="accountId" value="{{ account.accountId }}" />
             <button type="submit" class="btn btn-danger btn-block"
                onclick="return confirm('Are you sure you want to delete the account \'{{ account.name }}\'?')">
                 Delete</button>
