@@ -63,23 +63,54 @@ class TransactionController extends NickelTrackerController
             array('transactions' => $transactions));
     }
 
-    public function newIncomeAction(Request $request)
+    public function newIncomeAction(Request $request, $status)
     {
+        if($status == 'error')
+        {
+            $msg = array('type' => 'danger',
+                'text' => "<strong>Woah!</strong> One or more values are invalid. Please try again.");
+            return $this->render('FuentesWorksNickelTrackerBundle:Transaction:new-income.html.twig',
+                array('msg' => $msg));
+        }
         return $this->render('FuentesWorksNickelTrackerBundle:Transaction:new-income.html.twig');
     }
 
-    public function newExpenseAction(Request $request)
+    public function newExpenseAction(Request $request, $status)
     {
+        if($status == 'error')
+        {
+            $msg = array('type' => 'danger',
+                'text' => "<strong>Woah!</strong> One or more values are invalid. Please try again.");
+            return $this->render('FuentesWorksNickelTrackerBundle:Transaction:new-expense.html.twig',
+                array('msg' => $msg));
+        }
         return $this->render('FuentesWorksNickelTrackerBundle:Transaction:new-expense.html.twig');
     }
 
-    public function newTransferAction(Request $request)
+    public function newTransferAction(Request $request, $status)
     {
+        if($status == 'error')
+        {
+            $msg = array('type' => 'danger',
+                'text' => "<strong>Woah!</strong> One or more values are invalid. Please try again.");
+            return $this->render('FuentesWorksNickelTrackerBundle:Transaction:new-transfer.html.twig',
+                array('msg' => $msg));
+        }
         return $this->render('FuentesWorksNickelTrackerBundle:Transaction:new-transfer.html.twig');
     }
 
     public function newIncomeProcessAction(Request $request)
     {
+        // Validate parameters
+        $parameters = array('accountId', 'categoryId', 'date', 'amount', 'description');
+        foreach($parameters as $param)
+        {
+            if(!$request->request->has($param) || !$request->request->get($param))
+            {
+                return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_new_income', array('status' => 'error')));
+            }
+        }
+
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
 
@@ -109,6 +140,16 @@ class TransactionController extends NickelTrackerController
 
     public function newExpenseProcessAction(Request $request)
     {
+        // Validate parameters
+        $parameters = array('accountId', 'categoryId', 'date', 'amount', 'description');
+        foreach($parameters as $param)
+        {
+            if(!$request->request->has($param) || !$request->request->get($param))
+            {
+                return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_new_expense', array('status' => 'error')));
+            }
+        }
+
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
 
@@ -138,6 +179,16 @@ class TransactionController extends NickelTrackerController
 
     public function newTransferProcessAction(Request $request)
     {
+        // Validate parameters
+        $parameters = array('sourceId', 'destinationId', 'date', 'amount', 'description');
+        foreach($parameters as $param)
+        {
+            if(!$request->request->has($param) || !$request->request->get($param))
+            {
+                return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_new_transfer', array('status' => 'error')));
+            }
+        }
+
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
 
@@ -211,7 +262,7 @@ class TransactionController extends NickelTrackerController
         $em->remove($trans);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_transaction_list', array('status' => 'delete')));
+        return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_transaction_list', array('status' => 'del')));
     }
 
     private function compareFunction(TransactionInterface $a, TransactionInterface $b){

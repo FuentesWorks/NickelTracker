@@ -32,18 +32,18 @@ fuentesworks_nickeltracker_new_transfer_process:
 
 ## Header Toggle
 fuentesworks_nickeltracker_new_income:
-    pattern:    /new/income
-    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newIncome }
+    pattern:    /new/income/{status}
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newIncome, status: null }
     methods:    [GET]
 
 fuentesworks_nickeltracker_new_expense:
-    pattern:    /new/expense
-    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newExpense }
+    pattern:    /new/expense/{status}
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newExpense, status: null }
     methods:    [GET]
 
 fuentesworks_nickeltracker_new_transfer:
-    pattern:    /new/transfer
-    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newTransfer }
+    pattern:    /new/transfer/{status}
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:newTransfer, status: null }
     methods:    [GET]
 
 ## Account
@@ -115,13 +115,12 @@ fuentesworks_nickeltracker_category_delete:
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:delete }
     methods:    [POST]
 
-
-## Transaction
-fuentesworks_nickeltracker_transaction_list:
-    pattern:    /transactions/status/{status}
-    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:list, status: null }
-
 fuentesworks_nickeltracker_transaction_delete:
     pattern:    /transactions/delete
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:delete }
     methods:    [POST]
+
+## Transaction
+fuentesworks_nickeltracker_transaction_list:
+    pattern:    /transactions/{status}
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:list, status: null }
