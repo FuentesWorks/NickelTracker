@@ -48,8 +48,19 @@ Finally, enter:
 ### 4. Configuring Symfony ###
 The installation should only ask for your root password once to download packages (via `apt-get`) and
 perform some slight changes to your system configuration (enable Apache2's VirtualHosts).
+
 Once it begins installing Symfony, it'll stop to ask you the values to save into your `parameters.yml` file
 for Symfony. You should have your database connection parameters ready at hand, the application was developed
 and tested only with MySQL, but it should work with any other DB engines that are supported by the PDO driver.
 
+The installation will ask you for your `nickeltracker_username` and `nickeltracker_password` which will be
+your system credentials for NickelTracker.
 
+### 5. Cleaning up ###
+It is recommended to run the update script right after the `install.sh` script finishes, as the update process will
+clear some cache files that might have been created while installing.
+
+To update, run:
+```
+./update.sh
+```

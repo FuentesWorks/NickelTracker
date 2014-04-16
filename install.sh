@@ -2,6 +2,9 @@
 
 ## Assuming a basic LAMP stack running on Ubuntu
 
+chmod +x install.sh
+chmod +x update.sh
+
 echo -e "\e[1m--- Update Repositories ---\e[0m"
 sudo apt-get update > /dev/null
 sudo apt-get install -y python-software-properties
