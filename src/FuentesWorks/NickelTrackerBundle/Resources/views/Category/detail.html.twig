@@ -39,8 +39,12 @@
             <label for="budget" class="col-lg-2 control-label">Budget</label>
             <div class="col-lg-6">
                 {% if mode == 'new' or mode == 'edit' %}
-                    <input type="number" class="form-control" id="budget" name="budget" placeholder="budget"
-                           value="{{ category.budget }}" required>
+                    <div class="input-group input-group-md">
+                        <span class="input-group-addon">$</span>
+                        <input type="number" class="form-control" name="budget" placeholder="budget"
+                               value="{{ category.budget }}" required>
+                        <span class="input-group-addon">.00</span>
+                    </div>
                 {% else %}
                     <p class="form-control-static">{{ category.budget }}</p>
                 {% endif %}
