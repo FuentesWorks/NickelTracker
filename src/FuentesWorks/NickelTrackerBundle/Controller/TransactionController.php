@@ -307,7 +307,8 @@ class TransactionController extends NickelTrackerController
         if ($a->getDate() == $b->getDate()) {
             return 0;
         }
-        return ($a->getDate() < $b->getDate()) ? -1 : 1;
+        //return ($a->getDate() < $b->getDate()) ? -1 : 1; // low to high
+        return ($a->getDate() > $b->getDate()) ? -1 : 1; // high to low
     }
 
 }
