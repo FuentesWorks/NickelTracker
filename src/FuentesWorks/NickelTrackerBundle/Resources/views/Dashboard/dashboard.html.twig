@@ -7,27 +7,32 @@
 
     <div class="row placeholders">
         <div class="col-xs-6 col-sm-3 placeholder">
-            <h4>$1'200</h4>
+            <h4>${{ dashboard.expense|number_format(0, '.', ',') }}</h4>
             <span class="text-muted">Monthly Expense</span>
         </div>
         <div class="col-xs-6 col-sm-3 placeholder">
-            <h4>$1'000</h4>
+            <h4>${{ dashboard.income|number_format(0, '.', ',') }}</h4>
             <span class="text-muted">Monthly Income</span>
         </div>
         <div class="col-xs-6 col-sm-3 placeholder">
-            <h4>26.3%</h4>
-            <span class="text-muted">Percent saved</span>
+            <h4>${{ dashboard.cash|number_format(0, '.', ',') }}</h4>
+            <span class="text-muted">Cash</span>
         </div>
         <div class="col-xs-6 col-sm-3 placeholder">
-            <h4>0</h4>
-            <span class="text-muted">Overspent Categories</span>
+            <h4>${{ dashboard.bank|number_format(0, '.', ',') }}</h4>
+            <span class="text-muted">Banks</span>
         </div>
     </div>
 
-    <h3>Budget <small>spent $1'435 out of $8'000</small></h3>
+    <h3>Budget <small>spent ${{ dashboard.expense|number_format(0, '.', ',') }} out of ${{ dashboard.budget|number_format(0, '.', ',') }}</small></h3>
     <div class="bs-component">
         <div class="progress progress-striped">
-            <div class="progress-bar" style="width: 45%;"></div>
+            {{ set budgetpp = (dashboard.expense*100/dashboard.budget) }}
+            {% if budgetpp > 100 %}
+                <div class="progress-bar" style="width: 100%;">OVERSPENT</div>
+            {% else %}
+                <div class="progress-bar" style="width: {{ budgetpp|number_format(1, '.', ',') }}%;"></div>
+            {% endif %}
         </div>
     </div>
 
@@ -47,7 +52,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for transaction in transactions %}
+            {% for transaction in transactions|slice(0,20) %}
             <tr>
                 <td>{{ transaction.date|date('Y-M-d') }}</td>
                 <td>
