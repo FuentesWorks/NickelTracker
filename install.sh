@@ -16,6 +16,20 @@ sudo apt-get install -y curl
 sudo apt-get install -y libcurl3 php5-curl php5-intl
 sudo service apache2 restart
 
+echo -e "\e[1m--- Install MySQL ---\e[0m"
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password devroot'
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password devroot'
+sudo apt-get install -y mysql-server
+sudo apt-get install -y php5-mysql
+
+echo -e "\e[1m--- Install MySQL ---\e[0m"
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password devroot'
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password devroot'
+sudo apt-get install -y mysql-server
+sudo apt-get install -y php5-mysql
+echo "-> Prepare NickelTracker Database"
+mysql -uroot -e "CREATE DATABASE 'nickeltracker'"
+
 echo -e "\e[1m--- Prepare /var/www ---\e[0m"
 sudo adduser $USER www-data
 sudo chown -R www-data:www-data /var/www
