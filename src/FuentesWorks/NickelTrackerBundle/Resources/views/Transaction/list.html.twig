@@ -37,11 +37,11 @@
                     <td>{{ transaction.date|date('Y-M-d') }}</td>
                     <td>
                         {% if transaction.getType() == 'I' %}
-                            <span class="glyphicon glyphicon-plus"></span> Income
+                            Income
                         {% elseif transaction.getType() == 'E' %}
-                            <span class="glyphicon glyphicon-minus"></span> Expense
+                            Expense
                         {% elseif transaction.getType() == 'T' %}
-                            <span class="glyphicon glyphicon-arrow-right"></span> Transfer
+                            Transfer
                         {% endif %}
                     </td>
                     <td>
