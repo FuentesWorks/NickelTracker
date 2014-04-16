@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FuentesWorks\NickelTrackerBundle\Controller\NickelTrackerController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use FuentesWorks\NickelTrackerBundle\Entity\Account;
 use FuentesWorks\NickelTrackerBundle\Entity\Category;
@@ -15,6 +16,13 @@ class DashboardController extends NickelTrackerController
 {
     public function homeAction()
     {
+
+        function cmp($a, $b){
+            if ($a->getDate() == $b->getDate()) {
+                return 0;
+            }
+            return ($a->getDate() < $b->getDate()) ? -1 : 1;
+        }
         $doctrine = $this->getDoctrine();
 
         // Load all accounts and
@@ -33,6 +41,20 @@ class DashboardController extends NickelTrackerController
             ->addOrderby('t.transactionLogId', 'DESC')
             ->getQuery();
         $transactions = $query->getResult();
+
+        $repository = $this->getDoctrine()
+            ->getRepository('FuentesWorksNickelTrackerBundle:TransferLog');
+        $query = $repository->createQueryBuilder('t')
+            ->where('t.date >= :month')
+            ->setParameter('month', date('01-m-Y'))
+            ->orderBy('t.date', 'DESC')
+            ->addOrderby('t.transferLogId', 'DESC')
+            ->getQuery();
+        $transfers = $query->getResult();
+
+        // Merge both arrays and sort
+        $transactions = array_merge($transactions, $transfers);
+        uasort($transactions, 'cmp');
 
         // Calculate Dashboard parameters
         $dashboard = array();
