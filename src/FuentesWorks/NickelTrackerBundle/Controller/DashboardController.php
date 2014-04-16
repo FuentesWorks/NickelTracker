@@ -71,7 +71,10 @@ class DashboardController extends NickelTrackerController
         }
 
         return $this->render('FuentesWorksNickelTrackerBundle:Dashboard:dashboard.html.twig',
-            array('transactions' => $transactions));
+            array('transactions' => $transactions,
+                  'accounts' => $accounts,
+                  'categories' => $categories,
+                  'dashboard' => $dashboard));
     }
 
 }
