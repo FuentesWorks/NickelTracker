@@ -214,6 +214,39 @@ class Account
         }
     }
 
+    public function revertBalance(TransactionInterface $trans)
+    {
+        if($trans->getType() == 'T')
+        {
+            // Transfer, check the direction
+            /* @var TransferLog $trans */
+            if($trans->getSourceId()->getAccountId() == $this->accountId)
+            {
+                // This account is the source, therefore it's negative
+                $this->balance += $trans->getAmount();
+            } elseif($trans->getDestinationId()->getAccountId() == $this->accountId) {
+                // This account is the destination, therefore it's positive
+                $this->balance -= $trans->getAmount();
+            } else {
+                throw new \RuntimeException('TransferLog does not affect account: ' . $this->accountId);
+            }
+        } else {
+            // Transaction, check type
+            /* @var TransactionLog $trans */
+            if($trans->getType() == 'I')
+            {
+                // Income
+                $this->balance -= $trans->getAmount();
+            } elseif($trans->getType() == 'E') {
+                // Expense
+                $this->balance += $trans->getAmount();
+            } else {
+                // Unrecognized type
+                throw new \RuntimeException('Invalid TransactionLog type: ' . $trans->getType());
+            }
+        }
+    }
+
     /**
      * Get the human readable account type
      * @return string

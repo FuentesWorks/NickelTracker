@@ -156,23 +156,36 @@ class TransactionController extends NickelTrackerController
         $em = $doctrine->getManager();
         $globalId = $request->request->get('globalId');
 
-        if(!$globalId)
+        if(!$globalId || !in_array($globalId[0], array('T', 'I', 'E')) )
         {
             // No Global ID fround
-            throw $this->createNotFoundException('No GlobalId provided');
-        } elseif($globalId[0] == 'T') {
+            throw $this->createNotFoundException('No GlobalId provided or invalid');
+        }
+
+        if($globalId[0] == 'T') {
             // TransferLog
             $id = substr($globalId, 1);
+            /* @var TransferLog $trans */
             $trans = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\TransferLog')
                 ->find( $id );
-        } elseif($globalId[0] == 'I' || $globalId[0] == 'E') {
+
+            // Revert balance changes
+            $source = $trans->getSourceId();
+            $source->revertBalance($trans);
+
+            $destination = $trans->getDestinationId();
+            $destination->revertBalance($trans);
+
+        } else {
             // TransactionLog
             $id = substr($globalId, 1);
+            /* @var TransactionLog $trans */
             $trans = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\TransactionLog')
                 ->find( $id );
-        } else {
-            // Invalid GlobalId
-            throw $this->createNotFoundException('Invalid GlobalId provided');
+
+            // Revert balance changes
+            $source = $trans->getAccountId();
+            $source->revertBalance($trans);
         }
 
         if(!$trans)
