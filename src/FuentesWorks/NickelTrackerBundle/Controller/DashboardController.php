@@ -11,18 +11,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use FuentesWorks\NickelTrackerBundle\Entity\Account;
 use FuentesWorks\NickelTrackerBundle\Entity\Category;
 use FuentesWorks\NickelTrackerBundle\Entity\TransactionLog;
+use FuentesWorks\NickelTrackerBundle\Entity\TransactionInterface;
 
 class DashboardController extends NickelTrackerController
 {
     public function homeAction()
     {
-
-        function cmp($a, $b){
-            if ($a->getDate() == $b->getDate()) {
-                return 0;
-            }
-            return ($a->getDate() < $b->getDate()) ? -1 : 1;
-        }
         $doctrine = $this->getDoctrine();
 
         // Load all accounts and
@@ -54,7 +48,7 @@ class DashboardController extends NickelTrackerController
 
         // Merge both arrays and sort
         $transactions = array_merge($transactions, $transfers);
-        uasort($transactions, 'cmp');
+        uasort($transactions, array($this, 'compareFunction'));
 
         // Calculate Dashboard parameters
         $dashboard = array();
@@ -97,6 +91,13 @@ class DashboardController extends NickelTrackerController
                   'accounts' => $accounts,
                   'categories' => $categories,
                   'dashboard' => $dashboard));
+    }
+
+    private function compareFunction(TransactionInterface $a, TransactionInterface $b){
+        if ($a->getDate() == $b->getDate()) {
+            return 0;
+        }
+        return ($a->getDate() < $b->getDate()) ? -1 : 1;
     }
 
 }

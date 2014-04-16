@@ -17,4 +17,6 @@ interface TransactionInterface
     public function getAmount();
 
     public function getGlobalId();
+
+    public function getDate();
 }
