@@ -22,7 +22,7 @@ class TransactionController extends NickelTrackerController
         $query = $repository->createQueryBuilder('t')
             ->setMaxResults(50)
             ->orderBy('t.date', 'DESC')
-            ->addOrderby('t.transactionLogId', 'DESC')
+            ->addOrderby('t.transactionLogId', 'ASC')
             ->getQuery();
         $transactions = $query->getResult();
 
@@ -31,7 +31,7 @@ class TransactionController extends NickelTrackerController
         $query = $repository->createQueryBuilder('t')
             ->setMaxResults(50)
             ->orderBy('t.date', 'DESC')
-            ->addOrderby('t.transferLogId', 'DESC')
+            ->addOrderby('t.transferLogId', 'ASC')
             ->getQuery();
         $transfers = $query->getResult();
 

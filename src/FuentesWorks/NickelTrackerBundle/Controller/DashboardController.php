@@ -25,13 +25,13 @@ class DashboardController extends NickelTrackerController
         $categories = $this->getDoctrine()->getRepository('FuentesWorksNickelTrackerBundle:Category')
             ->findAll();
 
-        // Load Recent Transtactions
+        // Load Recent Transactions
         $repository = $this->getDoctrine()
             ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog');
         $query = $repository->createQueryBuilder('t')
             ->setMaxResults(20)
             ->orderBy('t.date', 'DESC')
-            ->addOrderby('t.transactionLogId', 'DESC')
+            ->addOrderby('t.transactionLogId', 'ASC')
             ->getQuery();
         $recent_transactions = $query->getResult();
 
@@ -40,7 +40,7 @@ class DashboardController extends NickelTrackerController
         $query = $repository->createQueryBuilder('t')
             ->setMaxResults(5)
             ->orderBy('t.date', 'DESC')
-            ->addOrderby('t.transferLogId', 'DESC')
+            ->addOrderby('t.transferLogId', 'ASC')
             ->getQuery();
         $recent_transfers = $query->getResult();
 
