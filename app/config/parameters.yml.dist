@@ -12,4 +12,5 @@ parameters:
     mailer_password: null
     locale: en
     secret: ~
+    admin_username: ~
     admin_password: ~
