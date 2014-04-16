@@ -27,11 +27,15 @@
     <h3>Budget <small>spent ${{ dashboard.expense|number_format(0, '.', ',') }} out of ${{ dashboard.budget|number_format(0, '.', ',') }}</small></h3>
     <div class="bs-component">
         <div class="progress progress-striped">
-            {% set budgetpp = (dashboard.expense*100/dashboard.budget) %}
-            {% if budgetpp > 100 %}
-                <div class="progress-bar" style="width: 100%;">OVERSPENT</div>
+            {% if dashboard.budget > 0 %}
+                {% set budgetpp = (dashboard.expense*100/dashboard.budget) %}
+                {% if budgetpp > 100 %}
+                    <div class="progress-bar" style="width: 100%;">OVERSPENT</div>
+                {% else %}
+                    <div class="progress-bar" style="width: {{ budgetpp|number_format(1, '.', ',') }}%;"></div>
+                {% endif %}
             {% else %}
-                <div class="progress-bar" style="width: {{ budgetpp|number_format(1, '.', ',') }}%;"></div>
+                <div class="progress-bar" style="width: 0;">No Budget Configured</div>
             {% endif %}
         </div>
     </div>
