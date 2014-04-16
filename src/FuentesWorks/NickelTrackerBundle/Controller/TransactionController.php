@@ -2,6 +2,7 @@
 
 namespace FuentesWorks\NickelTrackerBundle\Controller;
 
+use FuentesWorks\NickelTrackerBundle\Entity\TransactionInterface;
 use FuentesWorks\NickelTrackerBundle\Entity\TransactionLog;
 use FuentesWorks\NickelTrackerBundle\Entity\TransferLog;
 use FuentesWorks\NickelTrackerBundle\Entity\Account;
@@ -15,6 +16,7 @@ class TransactionController extends NickelTrackerController
 {
     public function listAction(Request $request, $status)
     {
+        // Load Recent Transtactions
         $repository = $this->getDoctrine()
             ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog');
         $query = $repository->createQueryBuilder('t')
@@ -23,6 +25,19 @@ class TransactionController extends NickelTrackerController
             ->addOrderby('t.transactionLogId', 'DESC')
             ->getQuery();
         $transactions = $query->getResult();
+
+        $repository = $this->getDoctrine()
+            ->getRepository('FuentesWorksNickelTrackerBundle:TransferLog');
+        $query = $repository->createQueryBuilder('t')
+            ->setMaxResults(50)
+            ->orderBy('t.date', 'DESC')
+            ->addOrderby('t.transferLogId', 'DESC')
+            ->getQuery();
+        $transfers = $query->getResult();
+
+        // Merge both arrays and sort
+        $transactions = array_merge($transactions, $transfers);
+        uasort($transactions, array($this, 'compareFunction'));
 
 
         if($status)
@@ -197,6 +212,13 @@ class TransactionController extends NickelTrackerController
         $em->flush();
 
         return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_transaction_list', array('status' => 'delete')));
+    }
+
+    private function compareFunction(TransactionInterface $a, TransactionInterface $b){
+        if ($a->getDate() == $b->getDate()) {
+            return 0;
+        }
+        return ($a->getDate() < $b->getDate()) ? -1 : 1;
     }
 
 }
