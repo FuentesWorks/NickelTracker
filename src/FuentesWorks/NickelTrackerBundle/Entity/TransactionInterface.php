@@ -19,4 +19,6 @@ interface TransactionInterface
     public function getGlobalId();
 
     public function getDate();
+
+    public function getCategory();
 }

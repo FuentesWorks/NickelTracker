@@ -44,7 +44,13 @@
                             <span class="glyphicon glyphicon-arrow-right"></span> Transfer
                         {% endif %}
                     </td>
-                    <td>{{ transaction.getCategory().getName() }}</td>
+                    <td>
+                        {% if not transaction.getCategory() %}
+                            None
+                        {% elseif %}
+                            {{ transaction.getCategory().getName() }}
+                        {% endif %}
+                    </td>
                     <td>{{ transaction.description }}</td>
                     <td>{{ transaction.getAccountName() }}</td>
                     <td>${{ transaction.amount|number_format(0, '.', ',') }}</td>

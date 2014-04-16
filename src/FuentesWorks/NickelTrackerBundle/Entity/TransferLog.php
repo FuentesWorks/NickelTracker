@@ -62,6 +62,11 @@ class TransferLog implements TransactionInterface
         return 'T' . $this->transferLogId;
     }
 
+    public function getCategory()
+    {
+        return false;
+    }
+
 
     #########################
     ## OBJECT RELATIONSHIP ##
