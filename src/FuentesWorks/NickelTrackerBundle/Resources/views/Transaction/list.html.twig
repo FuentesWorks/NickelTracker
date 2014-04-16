@@ -24,8 +24,8 @@
                 <tr>
                     <th>Date</th>
                     <th>Type</th>
-                    <th>Account</th>
                     <th>Description</th>
+                    <th>Account</th>
                     <th>Amount</th>
                     <th>Actions</th>
                 </tr>
@@ -43,8 +43,8 @@
                             <span class="glyphicon glyphicon-arrow-right"></span> Transfer
                         {% endif %}
                     </td>
-                    <td>{{ transaction.getAccountName() }}</td>
                     <td>{{ transaction.description }}</td>
+                    <td>{{ transaction.getAccountName() }}</td>
                     <td>${{ transaction.amount|number_format(0, '.', ',') }}</td>
                     <td>
                         <form action="{{ path('fuentesworks_nickeltracker_transaction_delete') }}" method="post">
