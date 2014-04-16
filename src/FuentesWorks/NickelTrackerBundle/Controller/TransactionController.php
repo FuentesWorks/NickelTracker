@@ -102,7 +102,8 @@ class TransactionController extends NickelTrackerController
     public function newIncomeProcessAction(Request $request)
     {
         // Validate parameters
-        $parameters = array('accountId', 'categoryId', 'date', 'amount', 'description');
+        //$parameters = array('accountId', 'categoryId', 'date', 'amount', 'description');
+        $parameters = array('accountId', 'date', 'amount', 'description');
         foreach($parameters as $param)
         {
             if(!$request->request->has($param) || !$request->request->get($param))
@@ -118,13 +119,13 @@ class TransactionController extends NickelTrackerController
         $account = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\Account')
             ->find( $request->request->get('accountId') );
         /* @var Category $category */
-        $category = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\Category')
-            ->find( $request->request->get('categoryId') );
+        //$category = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\Category')
+        //    ->find( $request->request->get('categoryId') );
 
         $trans = new TransactionLog();
         $trans->setType('I');
         $trans->setAccountId($account);
-        $trans->setCategoryId($category);
+        //$trans->setCategoryId($category);
 
         $trans->setDate(new \DateTime($request->request->get('date')));
         $trans->setAmount($request->request->get('amount'));
