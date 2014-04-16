@@ -24,6 +24,7 @@
                 <tr>
                     <th>Date</th>
                     <th>Type</th>
+                    <th>Category</th>
                     <th>Description</th>
                     <th>Account</th>
                     <th>Amount</th>
@@ -43,6 +44,7 @@
                             <span class="glyphicon glyphicon-arrow-right"></span> Transfer
                         {% endif %}
                     </td>
+                    <td>{{ transaction.getCategory().getName() }}</td>
                     <td>{{ transaction.description }}</td>
                     <td>{{ transaction.getAccountName() }}</td>
                     <td>${{ transaction.amount|number_format(0, '.', ',') }}</td>
