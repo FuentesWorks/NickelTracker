@@ -24,7 +24,7 @@ Now pull the most recent version of the installation script and go into the clon
 Modify the file `vhost/NickelTracker` by changing the following lines to your domain, subdomain or public IP address:
 
 ```
-nano vhost/NickelTracer
+nano vhost/NickelTracker
 ```
 
 And edit these two lines:
