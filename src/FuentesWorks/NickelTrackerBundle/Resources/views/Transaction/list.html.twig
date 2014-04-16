@@ -55,7 +55,7 @@
                     <td>{{ transaction.getAccountName() }}</td>
                     <td>${{ transaction.amount|number_format(0, '.', ',') }}</td>
                     <td>
-                        <a href="{{ path('fuentesworks_nickeltracker_transaction_view', {'id': transaction.getGlobalId()}) }}"
+                        <a href="{{ path('fuentesworks_nickeltracker_transaction_view', {'gid': transaction.getGlobalId()}) }}"
                            class="btn btn-default btn-xs" role="button">
                             <span class="glyphicon glyphicon-list"></span> Details
                         </a>
