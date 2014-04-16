@@ -45,10 +45,10 @@
                         {% endif %}
                     </td>
                     <td>
-                        {% if not transaction.getCategory() %}
+                        {% if not transaction.getCategoryId() %}
                             None
                         {% else %}
-                            {{ transaction.getCategory().getName() }}
+                            {{ transaction.getCategoryId().getName() }}
                         {% endif %}
                     </td>
                     <td>{{ transaction.description }}</td>
