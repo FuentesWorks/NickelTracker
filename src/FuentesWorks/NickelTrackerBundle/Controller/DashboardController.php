@@ -29,6 +29,30 @@ class DashboardController extends NickelTrackerController
         $repository = $this->getDoctrine()
             ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog');
         $query = $repository->createQueryBuilder('t')
+            ->setMaxResults(20)
+            ->orderBy('t.date', 'DESC')
+            ->addOrderby('t.transactionLogId', 'DESC')
+            ->getQuery();
+        $recent_transactions = $query->getResult();
+
+        $repository = $this->getDoctrine()
+            ->getRepository('FuentesWorksNickelTrackerBundle:TransferLog');
+        $query = $repository->createQueryBuilder('t')
+            ->setMaxResults(5)
+            ->orderBy('t.date', 'DESC')
+            ->addOrderby('t.transferLogId', 'DESC')
+            ->getQuery();
+        $recent_transfers = $query->getResult();
+
+        // Merge both arrays and sort
+        $recent = array_merge($recent_transactions, $recent_transfers);
+        uasort($recent, array($this, 'compareFunction'));
+
+
+        // Load this Month's Transtactions
+        $repository = $this->getDoctrine()
+            ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog');
+        $query = $repository->createQueryBuilder('t')
             ->where('t.date >= :month')
             ->setParameter('month', date('01-m-Y'))
             ->orderBy('t.date', 'DESC')
@@ -88,6 +112,7 @@ class DashboardController extends NickelTrackerController
 
         return $this->render('FuentesWorksNickelTrackerBundle:Dashboard:dashboard.html.twig',
             array('transactions' => $transactions,
+                  'recent' => $recent,
                   'accounts' => $accounts,
                   'categories' => $categories,
                   'dashboard' => $dashboard));
