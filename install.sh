@@ -3,6 +3,8 @@
 ## Assuming a basic LAMP stack running on Ubuntu
 
 echo -e "\e[1m--- Update Repositories ---\e[0m"
+sudo apt-get update > /dev/null
+sudo apt-get install -y python-software-properties
 sudo add-apt-repository -y ppa:ondrej/php5-oldstable
 sudo apt-get update > /dev/null
 
