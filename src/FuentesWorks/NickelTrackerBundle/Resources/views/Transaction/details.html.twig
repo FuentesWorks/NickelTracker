@@ -1,0 +1,62 @@
+{{ include('FuentesWorksNickelTrackerBundle:Layout:header.html.twig') }}
+{{ include('FuentesWorksNickelTrackerBundle:Layout:sidebar.html.twig', {'active': 'transactions'}) }}
+
+<!-- start: content -->
+<div class="col-sm-9 col-sm-offset-3 main">
+    <h1 class="sub-header">Transaction: {{ transaction.getGlobalId() }}</h1>
+
+    <ul class="list-group">
+        <li class="list-group-item">
+            <strong>Date:</strong>
+            {{ transaction.date|date('Y-M-d') }}
+        </li>
+        <li class="list-group-item">
+            <strong>Type:</strong>
+            {% if transaction.getType() == 'I' %}
+                <span class="glyphicon glyphicon-plus"></span> Income
+            {% elseif transaction.getType() == 'E' %}
+                <span class="glyphicon glyphicon-minus"></span> Expense
+            {% elseif transaction.getType() == 'T' %}
+                <span class="glyphicon glyphicon-arrow-right"></span> Transfer
+            {% endif %}
+        </li>
+        <li class="list-group-item">
+            <strong>Account:</strong>
+            {{ transaction.getAccountName() }}
+        </li>
+        <li class="list-group-item">
+            <strong>Category:</strong>
+            {% if not transaction.getCategoryId() %}
+                N/A
+            {% else %}
+                {{ transaction.getCategoryId().getName() }}
+            {% endif %}
+        </li>
+        <li class="list-group-item">
+            <strong>Description:</strong>
+            {{ transaction.description }}
+        </li>
+        <li class="list-group-item">
+            <strong>Details:</strong>
+            {{ transaction.details }}
+        </li>
+        <li class="list-group-item">
+            <strong>Amount:</strong>
+            ${{ transaction.amount|number_format(0, '.', ',') }}
+        </li>
+    </ul>
+
+    <form action="{{ path('fuentesworks_nickeltracker_transaction_delete') }}" method="post">
+        <div class="form-group">
+            <input type="hidden" name="globalId" value="{{ transaction.getGlobalId() }}" />
+            <button type="submit" class="btn btn-danger btn-block"
+                    onclick="return confirm('Are you sure you want to delete the transaction \'{{ transaction.getGlobalId() }}\'?')">
+                <span class="glyphicon glyphicon-remove"></span> Delete</button>
+        </div>
+    </form>
+</div>
+<!-- end: content -->
+
+{{ include('FuentesWorksNickelTrackerBundle:Layout:footer.html.twig') }}
+
+

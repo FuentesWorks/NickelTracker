@@ -21,4 +21,6 @@ interface TransactionInterface
     public function getDate();
 
     public function getCategoryId();
+
+    public function getDetails();
 }

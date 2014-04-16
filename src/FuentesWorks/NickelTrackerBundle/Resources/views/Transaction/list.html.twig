@@ -55,14 +55,10 @@
                     <td>{{ transaction.getAccountName() }}</td>
                     <td>${{ transaction.amount|number_format(0, '.', ',') }}</td>
                     <td>
-                        <form action="{{ path('fuentesworks_nickeltracker_transaction_delete') }}" method="post">
-                            <div class="form-group">
-                                <input type="hidden" name="globalId" value="{{ transaction.getGlobalId() }}" />
-                                <button type="submit" class="btn btn-danger btn-xs"
-                                        onclick="return confirm('Are you sure you want to delete the transaction \'{{ transaction.getGlobalId() }}\'?')">
-                                        <span class="glyphicon glyphicon-remove"></span> Delete</button>
-                            </div>
-                        </form>
+                        <a href="{{ path('fuentesworks_nickeltracker_transaction_view', {'id': transaction.getGlobalId()}) }}"
+                           class="btn btn-default btn-xs" role="button">
+                            <span class="glyphicon glyphicon-list"></span> Details
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}

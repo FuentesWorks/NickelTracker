@@ -63,6 +63,40 @@ class TransactionController extends NickelTrackerController
             array('transactions' => $transactions));
     }
 
+    public function viewAction(Request $request, $gid)
+    {
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
+
+        if(!$gid || !in_array($gid[0], array('T', 'I', 'E')) )
+        {
+            // No Global ID fround
+            throw $this->createNotFoundException('No GlobalId provided or invalid');
+        }
+
+        if($gid[0] == 'T') {
+            // TransferLog
+            $id = substr($gid, 1);
+            /* @var TransferLog $trans */
+            $trans = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\TransferLog')
+                ->find( $id );
+        } else {
+            // TransactionLog
+            $id = substr($gid, 1);
+            /* @var TransactionLog $trans */
+            $trans = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\TransactionLog')
+                ->find( $id );
+        }
+
+        if(!$trans)
+        {
+            throw $this->createNotFoundException('Could not find log with ID: ' . $gid );
+        }
+
+        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:details.html.twig',
+            array('transaction' => $trans));
+    }
+
     public function newIncomeAction(Request $request, $status)
     {
         if($status == 'error')
@@ -130,6 +164,7 @@ class TransactionController extends NickelTrackerController
         $trans->setDate(new \DateTime($request->request->get('date')));
         $trans->setAmount($request->request->get('amount'));
         $trans->setDescription($request->request->get('description'));
+        $trans->setDetails($request->request->get('details'));
 
         $account->updateBalance($trans);
 
@@ -169,6 +204,7 @@ class TransactionController extends NickelTrackerController
         $trans->setDate(new \DateTime($request->request->get('date')));
         $trans->setAmount($request->request->get('amount'));
         $trans->setDescription($request->request->get('description'));
+        $trans->setDetails($request->request->get('details'));
 
         $account->updateBalance($trans);
 
@@ -207,6 +243,7 @@ class TransactionController extends NickelTrackerController
         $trans->setDate(new \DateTime($request->request->get('date')));
         $trans->setAmount($request->request->get('amount'));
         $trans->setDescription($request->request->get('description'));
+        $trans->setDetails($request->request->get('details'));
 
         $source->updateBalance($trans);
         $destination->updateBalance($trans);

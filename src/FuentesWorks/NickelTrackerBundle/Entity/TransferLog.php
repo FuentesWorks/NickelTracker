@@ -35,6 +35,11 @@ class TransferLog implements TransactionInterface
     protected $description;
 
     /**
+     * @ORM\Column(type="text", nullable=false)
+     */
+    protected $details;
+
+    /**
      * @ORM\Column(type="date", nullable=false)
      */
     protected $date;
@@ -190,6 +195,25 @@ class TransferLog implements TransactionInterface
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @param string $details
+     * @return TransactionLog
+     */
+    public function setDetails($details)
+    {
+        $this->details = $details;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDetails()
+    {
+        return $this->details;
     }
 
     /**

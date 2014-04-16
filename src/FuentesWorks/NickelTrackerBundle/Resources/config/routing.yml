@@ -115,12 +115,16 @@ fuentesworks_nickeltracker_category_delete:
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:delete }
     methods:    [POST]
 
+## Transaction
+fuentesworks_nickeltracker_transaction_view:
+    pattern:    /transactions/view/{gid}
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:view }
+
 fuentesworks_nickeltracker_transaction_delete:
     pattern:    /transactions/delete
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:delete }
     methods:    [POST]
 
-## Transaction
 fuentesworks_nickeltracker_transaction_list:
     pattern:    /transactions/{status}
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:list, status: null }
