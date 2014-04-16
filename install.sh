@@ -33,7 +33,7 @@ sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again p
 sudo apt-get install -y mysql-server
 sudo apt-get install -y php5-mysql
 echo "-> Prepare NickelTracker Database"
-mysql -uroot -e "CREATE DATABASE 'nickeltracker'"
+mysql -uroot -pdevroot -e "CREATE DATABASE nickeltracker;"
 
 echo -e "\e[1m--- Prepare /var/www ---\e[0m"
 sudo adduser $USER www-data
