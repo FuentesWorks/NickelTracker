@@ -47,7 +47,7 @@
                     <td>
                         {% if not transaction.getCategory() %}
                             None
-                        {% elseif %}
+                        {% else %}
                             {{ transaction.getCategory().getName() }}
                         {% endif %}
                     </td>
