@@ -3,6 +3,7 @@
 namespace FuentesWorks\NickelTrackerBundle\Controller;
 
 use FuentesWorks\NickelTrackerBundle\Entity\TransactionLog;
+use FuentesWorks\NickelTrackerBundle\Entity\TransferLog;
 use FuentesWorks\NickelTrackerBundle\Entity\Account;
 use FuentesWorks\NickelTrackerBundle\Entity\Category;
 
@@ -122,7 +123,31 @@ class TransactionController extends NickelTrackerController
 
     public function newTransferProcessAction(Request $request)
     {
-        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:list.html.twig');
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
+
+        /* @var Account $source */
+        $source = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\Account')
+            ->find( $request->request->get('sourceId') );
+        /* @var Account $destination */
+        $destination = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\Account')
+            ->find( $request->request->get('destinationId') );
+
+        $trans = new TransferLog();
+        $trans->setSourceId($source);
+        $trans->setDestinationId($destination);
+
+        $trans->setDate(new \DateTime($request->request->get('date')));
+        $trans->setAmount($request->request->get('amount'));
+        $trans->setDescription($request->request->get('description'));
+
+        $source->updateBalance($trans);
+        $destination->updateBalance($trans);
+
+        $em->persist($trans);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_transaction_list', array('status' => 'add')));
     }
 
     public function deleteAction(Request $request)
