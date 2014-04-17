@@ -10,6 +10,7 @@ use FuentesWorks\NickelTrackerBundle\Entity\TransactionLog;
 /**
  * @ORM\Entity
  * @ORM\Table(name="Categories")
+ * @ORM\OrderBy({"name" = "ASC"})
  */
 class Category
 {
