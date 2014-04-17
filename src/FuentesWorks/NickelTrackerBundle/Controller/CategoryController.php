@@ -15,8 +15,12 @@ class CategoryController extends NickelTrackerController
     public function listAction()
     {
         // Load categories
-        $categories = $this->getDoctrine()->getRepository('FuentesWorksNickelTrackerBundle:Category')
-            ->findAll();
+        $repository = $this->getDoctrine()
+            ->getRepository('FuentesWorksNickelTrackerBundle:Category');
+        $query = $repository->createQueryBuilder('c')
+            ->orderBy('c.name', 'ASC')
+            ->getQuery();
+        $categories = $query->getResult();
 
         // Load this Month's Expenses
         $repository = $this->getDoctrine()
