@@ -98,7 +98,7 @@ class DashboardController extends NickelTrackerController
         {
             if($account->getType() == 'M') {
                 $dashboard['cash'] += $account->getBalance();
-            } elseif($account->getType() == 'S' || $account->getType() == 'D'){
+            } elseif($account->getType() == 'D'){
                 $dashboard['bank'] += $account->getBalance();
             }
         }

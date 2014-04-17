@@ -20,11 +20,11 @@
         </div>
         <div class="col-xs-6 col-sm-3 placeholder">
             <h4>${{ dashboard.bank|number_format(0, '.', ',') }}</h4>
-            <span class="text-muted">Bank</span>
+            <span class="text-muted">Debit</span>
         </div>
     </div>
 
-    <h3>Budget <small>spent ${{ dashboard.expense|number_format(0, '.', ',') }} out of ${{ dashboard.budget|number_format(0, '.', ',') }}</small></h3>
+    <h3>Budget <small>max ${{ dashboard.budget|number_format(0, '.', ',') }}</small></h3>
     <div class="bs-component">
         <div class="progress progress-striped">
             {% if dashboard.budget > 0 %}
