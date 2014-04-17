@@ -30,7 +30,7 @@
             {% if dashboard.budget > 0 %}
                 {% set budgetpp = (dashboard.expense*100/dashboard.budget) %}
                 {% if budgetpp > 100 %}
-                    <div class="progress-bar" style="width: 100%;">OVERSPENT</div>
+                    <div class="progress-bar progress-bar-danger" style="width: 100%;">OVERSPENT</div>
                 {% else %}
                     <div class="progress-bar" style="width: {{ budgetpp|number_format(1, '.', ',') }}%;"></div>
                 {% endif %}
