@@ -60,7 +60,8 @@ body {
 
 .nav-sidebar > .active > a {
     color: #fff;
-    background-color: #C61504;
+    /*background-color: #C61504;*/
+    background-color: #428bca;
 }
 
 /*
