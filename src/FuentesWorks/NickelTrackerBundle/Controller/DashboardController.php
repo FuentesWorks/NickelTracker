@@ -54,7 +54,7 @@ class DashboardController extends NickelTrackerController
             ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog');
         $query = $repository->createQueryBuilder('t')
             ->where('t.date >= :month')
-            ->setParameter('month', date('01-m-Y'))
+            ->setParameter('month', date('Y-m-01'))
             ->orderBy('t.date', 'DESC')
             ->addOrderby('t.transactionLogId', 'DESC')
             ->getQuery();
@@ -64,7 +64,7 @@ class DashboardController extends NickelTrackerController
             ->getRepository('FuentesWorksNickelTrackerBundle:TransferLog');
         $query = $repository->createQueryBuilder('t')
             ->where('t.date >= :month')
-            ->setParameter('month', date('01-m-Y'))
+            ->setParameter('month', date('Y-m-01'))
             ->orderBy('t.date', 'DESC')
             ->addOrderby('t.transferLogId', 'DESC')
             ->getQuery();
