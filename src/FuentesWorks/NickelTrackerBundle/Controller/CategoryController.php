@@ -46,7 +46,8 @@ class CategoryController extends NickelTrackerController
 
 
         // Just render the template, the $categories list is automatically injected.
-        return $this->render('FuentesWorksNickelTrackerBundle:Category:list.html.twig');
+        return $this->render('FuentesWorksNickelTrackerBundle:Category:list.html.twig',
+            array('categories' => $categories, 'balance' => $balance));
     }
 
     public function newAction()
