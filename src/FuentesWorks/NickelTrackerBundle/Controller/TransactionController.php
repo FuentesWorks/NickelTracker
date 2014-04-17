@@ -16,7 +16,7 @@ class TransactionController extends NickelTrackerController
 {
     public function listAction(Request $request, $status)
     {
-        // Load Recent Transtactions
+        // Load Recent Transactions
         $repository = $this->getDoctrine()
             ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog');
         $query = $repository->createQueryBuilder('t')
