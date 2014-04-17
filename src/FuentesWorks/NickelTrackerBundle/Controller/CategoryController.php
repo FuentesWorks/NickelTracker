@@ -8,11 +8,43 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use FuentesWorks\NickelTrackerBundle\Entity\Category;
+use FuentesWorks\NickelTrackerBundle\Entity\TransactionLog;
 
 class CategoryController extends NickelTrackerController
 {
     public function listAction()
     {
+        // Load categories
+        $categories = $this->getDoctrine()->getRepository('FuentesWorksNickelTrackerBundle:Category')
+            ->findAll();
+
+        // Load this Month's Expenses
+        $repository = $this->getDoctrine()
+            ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog');
+        $query = $repository->createQueryBuilder('t')
+            ->where('t.date >= :month')
+            ->andwhere("t.type = 'E'")
+            ->setParameter('month', date('Y-m-01'))
+            ->orderBy('t.date', 'DESC')
+            ->addOrderby('t.transactionLogId', 'DESC')
+            ->getQuery();
+        $transactions = $query->getResult();
+
+        $balance = array();
+        foreach($transactions as $transaction)
+        {
+            /* @var TransactionLog $transaction */
+            if($transaction->getCategoryId())
+            {
+                if(array_key_exists($transaction->getCategoryId()->getCategoryId(), $balance)) {
+                    $balance[$transaction->getCategoryId()->getCategoryId()] += $transaction->getAmount();
+                } else {
+                    $balance[$transaction->getCategoryId()->getCategoryId()] = $transaction->getAmount();
+                }
+            }
+        }
+
+
         // Just render the template, the $categories list is automatically injected.
         return $this->render('FuentesWorksNickelTrackerBundle:Category:list.html.twig');
     }

@@ -20,7 +20,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Budget</th>
-                    <th>Balance</th>
+                    <th>Expense</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -29,7 +29,12 @@
                     <td><a href="{{ path('fuentesworks_nickeltracker_category_view', {'id': category.categoryId}) }}">
                         {{ category.name }}</a></td>
                     <td>${{ category.budget|number_format(0, '.', ',') }}</td>
-                    <td>--</td>
+                    <td>{% if balance[category.categoryId] is defined %}
+                            ${{ balance[category.categoryId]|number_format(0, '.', ',') }}
+                        {% else %}
+                            $0
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
                 </tbody>
