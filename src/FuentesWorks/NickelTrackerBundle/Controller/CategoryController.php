@@ -12,7 +12,7 @@ use FuentesWorks\NickelTrackerBundle\Entity\TransactionLog;
 
 class CategoryController extends NickelTrackerController
 {
-    public function listAction()
+    public function listAction($status)
     {
         // Load categories
         $repository = $this->getDoctrine()
@@ -48,10 +48,18 @@ class CategoryController extends NickelTrackerController
             }
         }
 
+        if($status == 'ok') {
+            $msg = array('type' => 'success',
+                'text' => "<strong>Woot!</strong> Category created successfully!");
+        } elseif($status == 'del') {
+            $msg = array('type' => 'success',
+                'text' => "<strong>Woot!</strong> Category deleted successfully!");
+        } else {
+            $msg = null;
+        }
 
-        // Just render the template, the $categories list is automatically injected.
         return $this->render('FuentesWorksNickelTrackerBundle:Category:list.html.twig',
-            array('categories' => $categories, 'balance' => $balance));
+            array('categories' => $categories, 'balance' => $balance, 'msg' => $msg));
     }
 
     public function newAction()
@@ -143,11 +151,7 @@ class CategoryController extends NickelTrackerController
         $em->persist($category);
         $em->flush();
 
-        $msg = array('type' => 'success',
-            'text' => "<strong>Woot!</strong> Category created successfully!");
-
-        return $this->render('FuentesWorksNickelTrackerBundle:Category:list.html.twig',
-            array('msg' => $msg));
+        return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_category_list', array('status' => 'ok')));
     }
 
     public function deleteAction(Request $request)
@@ -171,10 +175,7 @@ class CategoryController extends NickelTrackerController
         $em->remove($category);
         $em->flush();
 
-        $msg = array('type' => 'success',
-            'text' => "<strong>Woot!</strong> Category deleted successfully!");
-        return $this->render('FuentesWorksNickelTrackerBundle:Category:list.html.twig',
-            array('msg' => $msg));
+        return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_category_list', array('status' => 'del')));
 
     }
 

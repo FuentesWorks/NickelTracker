@@ -82,10 +82,6 @@ fuentesworks_nickeltracker_account_delete:
 
 
 ## Category
-fuentesworks_nickeltracker_category_list:
-    pattern:    /categories
-    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:list }
-
 fuentesworks_nickeltracker_category_new:
     pattern:    /categories/new
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:new }
@@ -114,6 +110,10 @@ fuentesworks_nickeltracker_category_delete:
     pattern:    /categories/delete
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:delete }
     methods:    [POST]
+
+fuentesworks_nickeltracker_category_list:
+    pattern:    /categories/{status}
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Category:list, status: null }
 
 ## Transaction
 fuentesworks_nickeltracker_transaction_view:
