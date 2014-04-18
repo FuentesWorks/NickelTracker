@@ -3,6 +3,11 @@ NickelTracker
 
 A very basic expense tracker and envelope budgeter built as a Symfony2 app
 
+
+[Dashboard Screen](https://raw.githubusercontent.com/FuentesWorks/NickelTracker/master/doc/screen1.png "Dashboard Screen")
+[New Expense Screen](https://raw.githubusercontent.com/FuentesWorks/NickelTracker/master/doc/screen2.png "New Expense Screen")
+
+
 ## Installation
 ### 1. Preparations ###
 While this script takes care of most of the installation procedure, you still need to type some commands manually to get it started.
