@@ -1,10 +1,12 @@
 NickelTracker
 ==============
 
-A very basic expense tracker and envelope budgeter built as a Symfony2 app
+A very basic expense tracker and envelope budgeter built as a Symfony2 app.
 
-
+#### Dashboard
 ![Dashboard Screen](https://raw.githubusercontent.com/FuentesWorks/NickelTracker/master/doc/screen1-sm.png "Dashboard Screen")
+
+#### New Expense
 ![New Expense Screen](https://raw.githubusercontent.com/FuentesWorks/NickelTracker/master/doc/screen2-sm.png "New Expense Screen")
 
 
