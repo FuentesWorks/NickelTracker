@@ -81,6 +81,8 @@ That's it.
 This project is currently a work-in-progress.  While it is already pretty functional, there are many things still missing:
 
 - Filter and search transactions, by month, by category, by amount spent, etc..
+- More useful dashboard status
+- Reports and data analysis
 - Implement loading status & images
 - Prevent double clicks on actions, for example, to prevent saving the same expense twice
 - Documentation.
