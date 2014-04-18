@@ -68,7 +68,20 @@ your system credentials for NickelTracker.
 It is recommended to run the update script right after the `install.sh` script finishes, as the update process will
 clear some cache files that might have been created while installing.
 
+## Updating
 To update, run:
+
 ```
 ./update.sh
 ```
+
+That's it.
+
+## TO-DO
+This project is currently a work-in-progress.  While it is already pretty functional, there are many things still missing:
+
+- Filter and search transactions, by month, by category, by amount spent, etc..
+- Implement loading status & images
+- Prevent double clicks on actions, for example, to prevent saving the same expense twice
+- Documentation.
+
