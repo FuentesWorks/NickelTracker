@@ -169,6 +169,7 @@ class AccountController extends NickelTrackerController
         $sql = <<<ENDSQL
 SELECT
     t.accountId as `account`,
+    t.type as `type`,
     SUM(t.amount) as `total`
 FROM TransactionLogs as t
 GROUP BY t.accountId
@@ -180,7 +181,11 @@ ENDSQL;
 
         foreach($transactions as $transaction)
         {
-            $balances[ $transaction['account'] ] = $transaction['total'];
+            if($transaction['type'] == 'I') {
+                $balances[ $transaction['account'] ] += $transaction['total'];
+            } else {
+                $balances[ $transaction['account'] ] -= $transaction['total'];
+            }
         }
 
 
