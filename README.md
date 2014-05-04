@@ -85,5 +85,7 @@ This project is currently a work-in-progress.  While it is already pretty functi
 - Reports and data analysis
 - Implement loading status & images
 - Prevent double clicks on actions, for example, to prevent saving the same expense twice
+- Automatic backup (send to email, remote FTP, etc..)
+- Implement "Recalculate balance" method
 - Documentation.
 

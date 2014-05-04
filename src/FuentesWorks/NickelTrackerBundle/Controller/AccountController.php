@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use FuentesWorks\NickelTrackerBundle\Entity\Account;
+use FuentesWorks\NickelTrackerBundle\Entity\TransferLog;
 
 class AccountController extends NickelTrackerController
 {
@@ -141,6 +142,74 @@ class AccountController extends NickelTrackerController
 
     }
 
+    /**
+     * Recalculate account balances in case they are out of sync with
+     * the transaction history
+     * @param Request $request
+     */
+    public function recalculateBalancesAction(Request $request)
+    {
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
 
+        // 1. Load all the existing accounts
+        $accounts = $doctrine->getRepository('FuentesWorksNickelTrackerBundle:Account')
+            ->findAll();
+
+        // 2. Initialize the balances array..
+        $balances = array();
+        /* @var Account $account */
+        foreach($accounts as $account)
+        {
+            $balances[ $account->getAccountId() ] = 0;
+        }
+
+        // 3. First we'll parse the TransactionLogs
+        // TODO: Implement this in DQL Query Builder (OOP'd)
+        $sql = <<<ENDSQL
+SELECT
+    t.accountId as `account`,
+    SUM(t.amount) as `total`
+FROM TransactionLogs as t
+GROUP BY t.accountId
+ENDSQL;
+
+        $stmt = $em->getConnection()->prepare($sql);
+        $stmt->execute();
+        $transactions = $stmt->fetchAll();
+
+        foreach($transactions as $transaction)
+        {
+            $balances[ $transaction['account'] ] = $transaction['total'];
+        }
+
+
+        // 4. Then we'll parse the TransferLogs
+        $transfers = $doctrine->getRepository('FuentesWorksNickelTrackerBundle:TransferLog')
+            ->findAll();
+
+        /* @var TransferLog $transfer */
+        foreach($transfers as $transfer)
+        {
+            $balances[ $transfer->getSourceId()->getAccountId() ] -= $transfer->getAmount();
+            $balances[ $transfer->getDestinationId()->getAccountId() ] += $transfer->getAmount();
+        }
+
+        // 5. Finally, assign the recalculated balances to the Accounts
+        /* @var Account $account */
+        foreach($accounts as $account)
+        {
+            $account->setBalance( $balances[$account->getAccountId()] );
+        }
+
+        // Flush
+        $em->flush();
+
+        // Display success message
+        $msg = array('type' => 'success',
+        'text' => "<strong>Woot!</strong> Recalculated balances successfully!");
+        return $this->render('FuentesWorksNickelTrackerBundle:Account:list.html.twig',
+            array('msg' => $msg));
+    }
 
 }

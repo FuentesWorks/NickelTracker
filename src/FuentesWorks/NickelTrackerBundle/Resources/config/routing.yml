@@ -80,6 +80,10 @@ fuentesworks_nickeltracker_account_delete:
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Account:delete }
     methods:    [POST]
 
+fuentesworks_nickeltracker_account_recalculate_balances:
+    pattern:    /accounts/recalculate
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Account:recalculateBalances }
+    methods:    [POST]
 
 ## Category
 fuentesworks_nickeltracker_category_new:
