@@ -181,7 +181,7 @@ ENDSQL;
 
         foreach($transactions as $transaction)
         {
-            $balances[ $transaction['account'] ] = $transaction['amount'];
+            $balances[ $transaction['account'] ] += $transaction['amount'];
         }
 
 
