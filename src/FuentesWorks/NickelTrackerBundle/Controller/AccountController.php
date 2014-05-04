@@ -146,6 +146,7 @@ class AccountController extends NickelTrackerController
      * Recalculate account balances in case they are out of sync with
      * the transaction history
      * @param Request $request
+     * @return Response
      */
     public function recalculateBalancesAction(Request $request)
     {
@@ -170,7 +171,7 @@ class AccountController extends NickelTrackerController
 SELECT
     t.accountId as `account`,
     t.type as `type`,
-    SUM(t.amount) as `total`
+    SUM(t.amount) as `amount`
 FROM TransactionLogs as t
 GROUP BY t.accountId
 ENDSQL;
@@ -182,9 +183,9 @@ ENDSQL;
         foreach($transactions as $transaction)
         {
             if($transaction['type'] == 'I') {
-                $balances[ $transaction['account'] ] += $transaction['total'];
+                $balances[ $transaction['account'] ] += $transaction['amount'];
             } else {
-                $balances[ $transaction['account'] ] -= $transaction['total'];
+                $balances[ $transaction['account'] ] -= $transaction['amount'];
             }
         }
 
