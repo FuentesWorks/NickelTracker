@@ -24,6 +24,11 @@
     <link href="{{ asset('bundles/fuentesworksnickeltracker/css/dashboard.css') }}" rel="stylesheet">
 
     <script type="text/javascript">
+        function changeButtonText(spanId, spanText){
+            document.getElementById(spanId).innerHTML = spanText;
+            return true;
+        }
+
         window.onload = (function(){
             // Prevent iOS WebApp from opening a new tab in Safari, thus
             //  escaping its sandbox..

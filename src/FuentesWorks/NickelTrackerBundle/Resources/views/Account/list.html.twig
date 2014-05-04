@@ -45,6 +45,15 @@
             <button type="submit" class="btn btn-primary btn-block">Create New Account</button>
         </div>
     </form>
+    <hr>
+    <form action="{{ path('fuentesworks_nickeltracker_account_recalculate_balances') }}" method="post">
+        <div class="form-group">
+            <button type="submit" class="btn btn-info btn-block"
+                    onclick="changeButtonText('recalculate-text','Recalculating..');">
+                <span id="recalculate-text">Recalculate Balances</span>
+            </button>
+        </div>
+    </form>
 </div>
 <!-- end: content -->
 
