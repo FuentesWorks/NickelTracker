@@ -3,7 +3,7 @@ CACHE MANIFEST
 
 # CSS
 bundles/fuentesworksnickeltracker/css/bootstrap-3.1.1.min.css
-bundles/fuentesworksnickeltracker/css/dashboard.css
+bundles/fuentesworksnickeltracker/css/offcanvas.css
 
 # FONT
 bundles/fuentesworksnickeltracker/fonts/glyphicons-halflings-regular.eot
