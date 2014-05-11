@@ -1,0 +1,25 @@
+CACHE MANIFEST
+# version 2014.20.01
+
+# CSS
+bundles/fuentesworksnickeltracker/css/bootstrap-3.1.1.min.css
+bundles/fuentesworksnickeltracker/css/dashboard.css
+
+# FONT
+bundles/fuentesworksnickeltracker/fonts/glyphicons-halflings-regular.eot
+bundles/fuentesworksnickeltracker/fonts/glyphicons-halflings-regular.svg
+bundles/fuentesworksnickeltracker/fonts/glyphicons-halflings-regular.ttf
+bundles/fuentesworksnickeltracker/fonts/glyphicons-halflings-regular.woff
+
+# JS
+bundles/fuentesworksnickeltracker/js/jquery-1.11.0.min.js
+bundles/fuentesworksnickeltracker/js/bootstrap-3.1.1.min.js
+bundles/fuentesworksnickeltracker/js/fastclick.js
+bundles/fuentesworksnickeltracker/js/jquery.touchSwipe.min.js
+bundles/fuentesworksnickeltracker/js/nickeltracker.js
+
+# IMG
+bundles/fuentesworksnickeltracker/img/NickelTracker-favico.png
+bundles/fuentesworksnickeltracker/img/NickelTracker-iphone.png
+bundles/fuentesworksnickeltracker/img/NickelTracker-iphone-retina.png
+bundles/fuentesworksnickeltracker/img/NickelTracker-background-iphone5.png

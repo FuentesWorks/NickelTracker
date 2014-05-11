@@ -18,83 +18,23 @@
     <title>NickelTracker</title>
 
     <!-- Bootstrap core CSS + Theme -->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('bundles/fuentesworksnickeltracker/css/bootstrap-3.1.1.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{{ asset('bundles/fuentesworksnickeltracker/css/dashboard.css') }}" rel="stylesheet">
-
-    <script type="text/javascript">
-        function changeButtonText(spanId, spanText){
-            document.getElementById(spanId).innerHTML = spanText;
-            return true;
-        }
-
-        window.onload = (function(){
-            // Prevent iOS WebApp from opening a new tab in Safari, thus
-            //  escaping its sandbox..
-            var a=document.getElementsByTagName("a");
-            for(var i=0;i<a.length;i++)
-            {
-                a[i].onclick=function()
-                {
-                    window.location=this.getAttribute("href");
-                    return false
-                }
-            }
-
-            ///// Save button /////
-            var s = document.getElementById("btn-save");
-            // assign a function to the link on "onclick"
-            s.onclick = function() {
-                document.getElementById("btn-save-text").innerHTML='Saving..';
-                return true;
-            };
-        });
-    </script>
+    <link href="{{ asset('bundles/fuentesworksnickeltracker/css/offcanvas.css') }}" rel="stylesheet">
 </head>
 
 <body>
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
+    <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{{ path('fuentesworks_nickeltracker_dashboard') }}">
-                <strong>NickelTracker</strong></a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="navbar-hidden-menu">
-                    <a href="{{ path('fuentesworks_nickeltracker_dashboard') }}">Dashboard</a></li>
-                <li class="navbar-hidden-menu">
-                    <a href="{{ path('fuentesworks_nickeltracker_account_list') }}">Accounts</a></li>
-                <li class="navbar-hidden-menu">
-                    <a href="{{ path('fuentesworks_nickeltracker_category_list') }}">Categories</a></li>
-                <li class="navbar-hidden-menu">
-                    <a href="{{ path('fuentesworks_nickeltracker_transaction_list') }}">Transactions</a></li>
-                <li class="navbar-hidden-menu nav-divider"></li>
-                <li class="navbar-hidden-menu"><a href="{{ path('fuentesworks_nickeltracker_new_income') }}">
-                        <span class="glyphicon glyphicon-plus"></span> New Income
-                </a></li>
-                <li class="navbar-hidden-menu"><a href="{{ path('fuentesworks_nickeltracker_new_expense') }}">
-                        <span class="glyphicon glyphicon-minus"></span> New Expense
-                    </a></li>
-                <li class="navbar-hidden-menu"><a href="{{ path('fuentesworks_nickeltracker_new_transfer') }}">
-                        <span class="glyphicon glyphicon-arrow-right"></span> New Transfer
-                    </a></li>
-                <li class="navbar-hidden-menu nav-divider"></li>
-                <li><a href="{{ path('logout') }}">
-                        <span class="glyphicon glyphicon-off"></span> <span class="navbar-hidden-menu">Logout</span>
-                    </a></li>
-            </ul>
+            <button type="button" class="navbar-toggle navbar-button" data-toggle="offcanvas"><a class="navbar-link"><span class="glyphicon glyphicon-list"></span></a></button>
+            <a href="{{ path('fuentesworks_nickeltracker_dashboard') }}" class="navbar-brand"><strong>NickelTracker</strong></a>
         </div>
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="row">
+<!-- start: container -->
+<div id="main-body" class="container">
+    <div class="row row-offcanvas row-offcanvas-left">
