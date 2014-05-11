@@ -1,15 +1,21 @@
 <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
     <!-- start: sidebar menu -->
-    <ul class="nav nav-sidebar">
-        <li {% if active == 'dashboard' %}class="active"{% endif %}>
-            <a href="{{ path('fuentesworks_nickeltracker_dashboard') }}">Dashboard</a></li>
-        <li {% if active == 'accounts' %}class="active"{% endif %}>
-            <a href="{{ path('fuentesworks_nickeltracker_account_list') }}">Accounts</a></li>
-        <li {% if active == 'categories' %}class="active"{% endif %}>
-            <a href="{{ path('fuentesworks_nickeltracker_category_list') }}">Categories</a></li>
-        <li {% if active == 'transactions' %}class="active"{% endif %}>
-            <a href="{{ path('fuentesworks_nickeltracker_transaction_list') }}">Transactions</a></li>
-    </ul>
+    <div class="panel panel-default">
+        <ul class="list-group">
+            <li class="list-group-item{% if active == 'dashboard' %} active{% endif %}">
+                <a href="{{ path('fuentesworks_nickeltracker_dashboard') }}">Dashboard</a>
+            </li>
+            <li class="list-group-item{% if active == 'accounts' %} active{% endif %}">
+                <a href="{{ path('fuentesworks_nickeltracker_account_list') }}">Accounts</a>
+            </li>
+            <li class="list-group-item{% if active == 'categories' %} active{% endif %}">
+                <a href="{{ path('fuentesworks_nickeltracker_category_list') }}">Categories</a>
+            </li>
+            <li class="list-group-item{% if active == 'transactions' %} active{% endif %}">
+                <a href="{{ path('fuentesworks_nickeltracker_transaction_list') }}">Transactions</a>
+            </li>
+        </ul>
+    </div>
     <!-- end: sidebar menu -->
 
     <!-- start: sidebar actions -->
