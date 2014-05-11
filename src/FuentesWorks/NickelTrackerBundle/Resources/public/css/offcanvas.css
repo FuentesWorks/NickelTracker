@@ -7,7 +7,7 @@ body {
     overflow-x: hidden; /* Prevent scroll on narrow devices */
 }
 body {
-    padding-top: 80px;
+    padding-top: 40px;
 }
 footer {
     padding: 30px 0;
