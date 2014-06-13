@@ -21,6 +21,7 @@
                     <th>Name</th>
                     <th>Budget</th>
                     <th>Expense</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,14 @@
                         {% else %}
                             $0
                         {% endif %}
+                    </td>
+                    <td>
+                        <form method="post" class="form-horizontal" role="form" action="{{ path('fuentesworks_nickeltracker_transaction_filter') }}">
+                            <button type="submit" class="btn btn-default btn-xs" role="button">
+                                <span class="glyphicon glyphicon-share-alt"></span> Transactions
+                            </button>
+                            <input type="hidden" name="categoryId" value="category.categoryId" />
+                        </form>
                     </td>
                 </tr>
                 {% endfor %}
