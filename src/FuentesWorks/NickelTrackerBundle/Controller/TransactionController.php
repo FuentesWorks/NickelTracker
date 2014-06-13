@@ -71,11 +71,13 @@ class TransactionController extends NickelTrackerController
 
         // Get parameters from request
         $accountId = $request->request->get('accountId');
+        $categoryId = $request->request->get('categoryId');
         $fromDate = $request->request->get('fromDate');
         $toDate = $request->request->get('toDate');
 
         // Parameters pass down
         $params['accountId'] = $accountId;
+        $params['categoryId'] = $categoryId;
         $params['fromDate'] = $fromDate;
         $params['toDate'] = $toDate;
 
@@ -98,6 +100,13 @@ class TransactionController extends NickelTrackerController
                 ->setParameter('accountId', $accountId);
             $qbTransfers->andWhere('t.sourceId = :accountId OR t.destinationId = :accountId')
                 ->setParameter('accountId', $accountId);
+        }
+
+        if($categoryId) {
+            $qbTransactions->andWhere('t.categoryId = :categoryId')
+                ->setParameter('categoryId', $categoryId);
+            // There are no TransferLogs that have categories.  Invalidate the query.
+            $qbTransfers->andWhere('1 = 2');
         }
 
         if($fromDate) {

@@ -25,6 +25,14 @@
                                 </select>
                             </div>
                             <div class="col-lg-3">
+                                <select class="form-control" name="categoryId">
+                                    <option value="0" selected="selected">-- Category --</option>
+                                    {% for category in categories %}
+                                        <option value="{{ category.categoryId }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-lg-3">
                                 <div class="input-group date" id="form_datetime_from" data-date-format="yyyy-mm-dd">
                                     <input class="form-control" id="fromDate" name="fromDate" size="16" type="text"
                                            value="" placeholder="-- From --" readonly />
@@ -40,6 +48,8 @@
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-lg-3">
                                 <button type="submit" class="btn btn-default btn-block">Filter</button>
                             </div>
