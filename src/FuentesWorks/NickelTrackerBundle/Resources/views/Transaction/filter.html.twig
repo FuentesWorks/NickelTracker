@@ -92,6 +92,7 @@
                 <tr>
                     <th>Date</th>
                     <th>Type</th>
+                    <th>Category</th>
                     <th>Description</th>
                     <th>Account</th>
                     <th>Amount</th>
@@ -109,6 +110,13 @@
                             <span class="glyphicon glyphicon-minus"></span> Expense
                         {% elseif transaction.getType() == 'T' %}
                             <span class="glyphicon glyphicon-arrow-right"></span> Transfer
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not transaction.getCategoryId() %}
+                            N/A
+                        {% else %}
+                            {{ transaction.getCategoryId().getName() }}
                         {% endif %}
                     </td>
                     <td>{{ transaction.description }}</td>
@@ -140,7 +148,6 @@
                 <tr>
                     <th>Date</th>
                     <th>Type</th>
-                    <th>Category</th>
                     <th>Description</th>
                     <th>Account</th>
                     <th>Amount</th>
@@ -158,13 +165,6 @@
                                 <span class="glyphicon glyphicon-minus"></span> Expense
                             {% elseif transaction.getType() == 'T' %}
                                 <span class="glyphicon glyphicon-arrow-right"></span> Transfer
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if not transaction.getCategoryId() %}
-                                N/A
-                            {% else %}
-                                {{ transaction.getCategoryId().getName() }}
                             {% endif %}
                         </td>
                         <td>{{ transaction.description }}</td>
