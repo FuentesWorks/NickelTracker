@@ -63,6 +63,66 @@ class TransactionController extends NickelTrackerController
             array('transactions' => $transactions));
     }
 
+    public function filterAction(Request $request)
+    {
+        if($request->getMethod() != 'POST') {
+            return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_transaction_list'));
+        }
+
+        // Get parameters from request
+        $accountId = $request->request->get('accountId');
+        $fromDate = $request->request->get('fromDate');
+        $toDate = $request->request->get('toDate');
+
+        // Parameters pass down
+        $params['accountId'] = $accountId;
+        $params['fromDate'] = $fromDate;
+        $params['toDate'] = $toDate;
+
+        /* @var \Doctrine\ORM\QueryBuilder $qbTransactions */
+        $qbTransactions = $this->getDoctrine()
+            ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog')
+            ->createQueryBuilder('t')
+            ->orderBy('t.date', 'DESC')
+            ->setMaxResults(50);
+
+        /* @var \Doctrine\ORM\QueryBuilder $qbTransfers */
+        $qbTransfers = $this->getDoctrine()
+            ->getRepository('FuentesWorksNickelTrackerBundle:TransferLog')
+            ->createQueryBuilder('t')
+            ->orderBy('t.date', 'DESC')
+            ->setMaxResults(50);
+
+        if($accountId) {
+            $qbTransactions->andWhere('t.accountId = :accountId')
+                ->setParameter('accountId', $accountId);
+            $qbTransfers->andWhere('t.accountId = :accountId')
+                ->setParameter('accountId', $accountId);
+        }
+
+        if($fromDate) {
+            $qbTransactions->andWhere('t.date >= :fromDate')
+                ->setParameter('fromDate', $fromDate);
+            $qbTransfers->andWhere('t.date >= :fromDate')
+                ->setParameter('fromDate', $fromDate);
+        }
+
+        if($toDate) {
+            $qbTransactions->andWhere('t.date <= :toDate')
+                ->setParameter('toDate', $toDate);
+            $qbTransfers->andWhere('t.date <= :toDate')
+                ->setParameter('toDate', $toDate);
+        }
+
+        $transactions = $qbTransactions->getQuery()->getResult();
+        $transfers = $qbTransfers->getQuery()->getResult();
+
+        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:filter.html.twig',
+            array('transactions' => $transactions,
+                  'transfers' => $transfers,
+                  'params' => $params));
+    }
+
     public function viewAction(Request $request, $gid)
     {
         $doctrine = $this->getDoctrine();

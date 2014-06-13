@@ -25,6 +25,26 @@ window.onload = (function(){
             return true;
         };
     }
+
+    ///// DateTime Picker /////
+    var from = $("#form_datetime_from");
+    var to = $("#form_datetime_to");
+    if(from.length != 0) {
+        from.datetimepicker({
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            minView: 2,
+            pickerPosition: "bottom-left"
+            });
+    }
+    if(to.length != 0) {
+        to.datetimepicker({
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            minView: 2,
+            pickerPosition: "bottom-left"
+        });
+    }
 });
 
 $(function() {
