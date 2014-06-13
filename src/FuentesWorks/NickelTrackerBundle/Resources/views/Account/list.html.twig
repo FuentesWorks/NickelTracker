@@ -21,6 +21,7 @@
                     <th>Type</th>
                     <th>Name</th>
                     <th>Balance</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -30,6 +31,14 @@
                     <td><a href="{{ path('fuentesworks_nickeltracker_account_view', {'id': account.accountId}) }}">
                         {{ account.name }}</a></td>
                     <td>${{ account.balance|number_format(0, '.', ',') }}</td>
+                    <td>
+                        <form method="post" class="form-horizontal" role="form" action="{{ path('fuentesworks_nickeltracker_transaction_filter') }}">
+                            <button type="submit" class="btn btn-default btn-xs" role="button">
+                                <span class="glyphicon glyphicon-share-alt"></span> Transactions
+                            </button>
+                            <input type="hidden" name="accountId" value="{{ account.accountId }}" />
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
                 </tbody>
