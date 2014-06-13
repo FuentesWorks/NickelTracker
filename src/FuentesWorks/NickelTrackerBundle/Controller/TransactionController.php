@@ -96,7 +96,7 @@ class TransactionController extends NickelTrackerController
         if($accountId) {
             $qbTransactions->andWhere('t.accountId = :accountId')
                 ->setParameter('accountId', $accountId);
-            $qbTransfers->andWhere('t.sourceId = :accountId OR t.destinationId')
+            $qbTransfers->andWhere('t.sourceId = :accountId OR t.destinationId = :accountId')
                 ->setParameter('accountId', $accountId);
         }
 
