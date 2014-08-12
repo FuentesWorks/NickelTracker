@@ -27,8 +27,18 @@ window.onload = (function(){
     }
 
     ///// DateTime Picker /////
+    var any = $("#form_date");
     var from = $("#form_datetime_from");
     var to = $("#form_datetime_to");
+
+    if(any.length != 0) {
+        any.datetimepicker({
+            format: "yyyy-mm-dd",
+            autoclose: true,
+            minView: 2,
+            pickerPosition: "bottom-left"
+        });
+    }
     if(from.length != 0) {
         from.datetimepicker({
             format: "yyyy-mm-dd",
