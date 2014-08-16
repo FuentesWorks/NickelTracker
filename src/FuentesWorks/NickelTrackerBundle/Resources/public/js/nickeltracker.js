@@ -62,6 +62,8 @@ $(function() {
     FastClick.attach(document.body);
 
     /* jQUERY SWIPE PLUGINS */
+    /* Disabling Swipe plugins for now, until I can find a workaround
+       to enable both responsive tables and Swipes.
     $("#main-body").swipe({
         swipeLeft:function(event, direction, distance, duration, fingerCount) {
             //This only fires when the user swipes left
@@ -74,6 +76,7 @@ $(function() {
             $('.row-offcanvas').toggleClass('active', true);
         }
     });
+    */
 });
 
 $(document).ready(function () {
