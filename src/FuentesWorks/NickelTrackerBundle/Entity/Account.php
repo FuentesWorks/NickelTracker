@@ -137,25 +137,23 @@ class Account
     ##   SPECIAL METHODS   ##
     #########################
 
-    public function updateBalance(TransactionInterface $trans)
+    public function updateBalance(Transaction $trans)
     {
         if($trans->getType() == 'T')
         {
             // Transfer, check the direction
-            /* @var TransferLog $trans */
-            if($trans->getSourceId()->getAccountId() == $this->accountId)
+            if($trans->getSourceAccountId()->getAccountId() == $this->accountId)
             {
                 // This account is the source, therefore it's negative
                 $this->balance -= $trans->getAmount();
-            } elseif($trans->getDestinationId()->getAccountId() == $this->accountId) {
+            } elseif($trans->getDestinationAccountId()->getAccountId() == $this->accountId) {
                 // This account is the destination, therefore it's positive
                 $this->balance += $trans->getAmount();
             } else {
-                throw new \RuntimeException('TransferLog does not affect account: ' . $this->accountId);
+                throw new \RuntimeException('Transaction does not affect account: ' . $this->accountId);
             }
         } else {
             // Transaction, check type
-            /* @var TransactionLog $trans */
             if($trans->getType() == 'I')
             {
                 // Income
@@ -165,30 +163,28 @@ class Account
                 $this->balance -= $trans->getAmount();
             } else {
                 // Unrecognized type
-                throw new \RuntimeException('Invalid TransactionLog type: ' . $trans->getType());
+                throw new \RuntimeException('Invalid Transaction type: ' . $trans->getType());
             }
         }
     }
 
-    public function revertBalance(TransactionInterface $trans)
+    public function revertBalance(Transaction $trans)
     {
         if($trans->getType() == 'T')
         {
             // Transfer, check the direction
-            /* @var TransferLog $trans */
-            if($trans->getSourceId()->getAccountId() == $this->accountId)
+            if($trans->getSourceAccountId()->getAccountId() == $this->accountId)
             {
                 // This account is the source, therefore it's negative
                 $this->balance += $trans->getAmount();
-            } elseif($trans->getDestinationId()->getAccountId() == $this->accountId) {
+            } elseif($trans->getDestinationAccountId()->getAccountId() == $this->accountId) {
                 // This account is the destination, therefore it's positive
                 $this->balance -= $trans->getAmount();
             } else {
-                throw new \RuntimeException('TransferLog does not affect account: ' . $this->accountId);
+                throw new \RuntimeException('Transaction does not affect account: ' . $this->accountId);
             }
         } else {
             // Transaction, check type
-            /* @var TransactionLog $trans */
             if($trans->getType() == 'I')
             {
                 // Income
@@ -198,7 +194,7 @@ class Account
                 $this->balance += $trans->getAmount();
             } else {
                 // Unrecognized type
-                throw new \RuntimeException('Invalid TransactionLog type: ' . $trans->getType());
+                throw new \RuntimeException('Invalid Transaction type: ' . $trans->getType());
             }
         }
     }
