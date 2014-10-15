@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use FuentesWorks\NickelTrackerBundle\Entity\Account;
-use FuentesWorks\NickelTrackerBundle\Entity\TransferLog;
+use FuentesWorks\NickelTrackerBundle\Entity\Transaction;
 
 class AccountController extends NickelTrackerController
 {
@@ -180,10 +180,14 @@ class AccountController extends NickelTrackerController
         // TODO: Implement this in DQL Query Builder (OOP'd)
         $sql = <<<ENDSQL
 SELECT
-    t.accountId as `account`,
-    SUM(CASE WHEN t.type = 'I' THEN t.amount ELSE t.amount * -1 END) as `amount`
-FROM TransactionLogs as t
-GROUP BY t.accountId
+    t.sourceAccountId as `account`,
+    SUM(CASE
+			WHEN t.type = 'I' THEN t.amount
+			WHEN t.type = 'E' THEN t.amount*-1
+			ELSE 0
+		END) as `income`
+FROM Transactions as t
+GROUP BY t.sourceAccountId;
 ENDSQL;
 
         $stmt = $em->getConnection()->prepare($sql);
@@ -196,15 +200,15 @@ ENDSQL;
         }
 
 
-        // 4. Then we'll parse the TransferLogs
-        $transfers = $doctrine->getRepository('FuentesWorksNickelTrackerBundle:TransferLog')
-            ->findAll();
+        // 4. Then we'll all transfers
+        $transfers = $doctrine->getRepository('FuentesWorksNickelTrackerBundle:Transaction')
+            ->findBy(array('type' => 'T'));
 
-        /* @var TransferLog $transfer */
+        /* @var Transaction $transfer */
         foreach($transfers as $transfer)
         {
-            $balances[ $transfer->getSourceId()->getAccountId() ] -= $transfer->getAmount();
-            $balances[ $transfer->getDestinationId()->getAccountId() ] += $transfer->getAmount();
+            $balances[ $transfer->getSourceAccountId()->getAccountId() ] -= $transfer->getAmount();
+            $balances[ $transfer->getDestinationAccountId()->getAccountId() ] += $transfer->getAmount();
         }
 
         // 5. Finally, assign the recalculated balances to the Accounts

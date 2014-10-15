@@ -131,7 +131,7 @@ class Account
     {
         return $this->destinationTransactions;
     }
-    
+
 
     #########################
     ##   SPECIAL METHODS   ##

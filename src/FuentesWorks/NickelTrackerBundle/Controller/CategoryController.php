@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use FuentesWorks\NickelTrackerBundle\Entity\Category;
-use FuentesWorks\NickelTrackerBundle\Entity\TransactionLog;
+use FuentesWorks\NickelTrackerBundle\Entity\Transaction;
 
 class CategoryController extends NickelTrackerController
 {
@@ -24,20 +24,22 @@ class CategoryController extends NickelTrackerController
 
         // Load this Month's Expenses
         $repository = $this->getDoctrine()
-            ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog');
+            ->getRepository('FuentesWorksNickelTrackerBundle:Transaction');
         $query = $repository->createQueryBuilder('t')
-            ->where('t.date >= :month')
+            ->where('t.date >= :startMonth')
+            ->andWhere('t.date <= :endMonth')
             ->andwhere("t.type = 'E'")
-            ->setParameter('month', date('Y-m-01'))
+            ->setParameter('startMonth', date('Y-m-01'))
+            ->setParameter('endMonth', date('Y-m-t'))
             ->orderBy('t.date', 'DESC')
-            ->addOrderby('t.transactionLogId', 'DESC')
+            ->addOrderby('t.transactionId', 'DESC')
             ->getQuery();
         $transactions = $query->getResult();
 
         $balance = array();
         foreach($transactions as $transaction)
         {
-            /* @var TransactionLog $transaction */
+            /* @var Transaction $transaction */
             if($transaction->getCategoryId())
             {
                 if(array_key_exists($transaction->getCategoryId()->getCategoryId(), $balance)) {

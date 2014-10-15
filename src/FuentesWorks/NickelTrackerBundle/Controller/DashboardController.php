@@ -10,8 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use FuentesWorks\NickelTrackerBundle\Entity\Account;
 use FuentesWorks\NickelTrackerBundle\Entity\Category;
-use FuentesWorks\NickelTrackerBundle\Entity\TransactionLog;
-use FuentesWorks\NickelTrackerBundle\Entity\TransactionInterface;
+use FuentesWorks\NickelTrackerBundle\Entity\Transaction;
 
 class DashboardController extends NickelTrackerController
 {
@@ -27,52 +26,26 @@ class DashboardController extends NickelTrackerController
 
         // Load Recent Transactions
         $repository = $this->getDoctrine()
-            ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog');
+            ->getRepository('FuentesWorksNickelTrackerBundle:Transaction');
         $query = $repository->createQueryBuilder('t')
-            ->setMaxResults(20)
+            ->setMaxResults(25)
             ->orderBy('t.date', 'DESC')
-            ->addOrderby('t.transactionLogId', 'ASC')
+            ->addOrderby('t.transactionId', 'ASC')
             ->getQuery();
         $recent_transactions = $query->getResult();
 
+        // Load this Month's Transactions
         $repository = $this->getDoctrine()
-            ->getRepository('FuentesWorksNickelTrackerBundle:TransferLog');
+            ->getRepository('FuentesWorksNickelTrackerBundle:Transaction');
         $query = $repository->createQueryBuilder('t')
-            ->setMaxResults(5)
+            ->where('t.date >= :startMonth')
+            ->andWhere('t.date <= :endMonth')
+            ->setParameter('startMonth', date('Y-m-01'))
+            ->setParameter('endMonth', date('Y-m-t'))
             ->orderBy('t.date', 'DESC')
-            ->addOrderby('t.transferLogId', 'ASC')
+            ->addOrderby('t.transactionId', 'DESC')
             ->getQuery();
-        $recent_transfers = $query->getResult();
-
-        // Merge both arrays and sort
-        $recent = array_merge($recent_transactions, $recent_transfers);
-        uasort($recent, array($this, 'compareFunction'));
-
-
-        // Load this Month's Transtactions
-        $repository = $this->getDoctrine()
-            ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog');
-        $query = $repository->createQueryBuilder('t')
-            ->where('t.date >= :month')
-            ->setParameter('month', date('Y-m-01'))
-            ->orderBy('t.date', 'DESC')
-            ->addOrderby('t.transactionLogId', 'DESC')
-            ->getQuery();
-        $transactions = $query->getResult();
-
-        $repository = $this->getDoctrine()
-            ->getRepository('FuentesWorksNickelTrackerBundle:TransferLog');
-        $query = $repository->createQueryBuilder('t')
-            ->where('t.date >= :month')
-            ->setParameter('month', date('Y-m-01'))
-            ->orderBy('t.date', 'DESC')
-            ->addOrderby('t.transferLogId', 'DESC')
-            ->getQuery();
-        $transfers = $query->getResult();
-
-        // Merge both arrays and sort
-        $transactions = array_merge($transactions, $transfers);
-        uasort($transactions, array($this, 'compareFunction'));
+        $month_transactions = $query->getResult();
 
         // Calculate Dashboard parameters
         $dashboard = array();
@@ -80,8 +53,8 @@ class DashboardController extends NickelTrackerController
         $dashboard['income'] = 0;
         $dashboard['expense'] = 0;
 
-        /* @var TransactionLog $transaction */
-        foreach($transactions as $transaction)
+        /* @var Transaction $transaction */
+        foreach($month_transactions as $transaction)
         {
             if($transaction->getType() == 'I'){
                 $dashboard['income'] += $transaction->getAmount();
@@ -111,19 +84,9 @@ class DashboardController extends NickelTrackerController
         }
 
         return $this->render('FuentesWorksNickelTrackerBundle:Dashboard:dashboard.html.twig',
-            array('transactions' => $transactions,
-                  'recent' => $recent,
+            array('transactions' => $recent_transactions,
                   'accounts' => $accounts,
                   'categories' => $categories,
                   'dashboard' => $dashboard));
     }
-
-    private function compareFunction(TransactionInterface $a, TransactionInterface $b){
-        if ($a->getDate() == $b->getDate()) {
-            return 0;
-        }
-        //return ($a->getDate() < $b->getDate()) ? -1 : 1; // low to high
-        return ($a->getDate() > $b->getDate()) ? -1 : 1; // high to low
-    }
-
 }

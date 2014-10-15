@@ -54,7 +54,7 @@ class Category
      * @param Transaction $transactions
      * @return Category
      */
-    public function addTransactionLog(Transaction $transactions)
+    public function addTransaction(Transaction $transactions)
     {
         $this->transactions[] = $transactions;
 
