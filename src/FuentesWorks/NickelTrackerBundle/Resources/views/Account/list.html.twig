@@ -15,12 +15,12 @@
     <!-- start: accounts list -->
     {% if accounts %}
         <div class="panel panel-default">
+            <div class="panel-heading"><strong>Totals</strong> <span class="pull-right">${{ total|number_format(0) }}</span></div>
             <div class="panel-body">
                 <div class="col-sm-3"><strong>Cash:</strong> ${{ totals['M']|number_format(0) }}</div>
                 <div class="col-sm-3"><strong>Debit:</strong> ${{ totals['D']|number_format(0) }}</div>
                 <div class="col-sm-3"><strong>Credit:</strong> ${{ totals['C']|number_format(0) }}</div>
                 <div class="col-sm-3"><strong>Savings:</strong> ${{ totals['S']|number_format(0) }}</div>
-                <div class="col-sm-12 text-center"><h4><strong>Total:</strong> ${{ total|number_format(0) }}</h4></div>
             </div>
         </div>
         <div class="table-responsive">
