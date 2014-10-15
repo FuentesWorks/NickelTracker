@@ -1,6 +1,6 @@
 <?php
 
-namespace FuentesWorks\NickelTrackerBundle\Entity;
+namespace FuentesWorks\NickelTrackerBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
