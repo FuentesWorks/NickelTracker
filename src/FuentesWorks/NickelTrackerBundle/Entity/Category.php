@@ -5,7 +5,7 @@ namespace FuentesWorks\NickelTrackerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use FuentesWorks\NickelTrackerBundle\Entity\TransactionLog;
+use FuentesWorks\NickelTrackerBundle\Entity\Transaction;
 
 /**
  * @ORM\Entity
@@ -40,48 +40,48 @@ class Category
     #########################
 
     /**
-     * @ORM\OneToMany(targetEntity="TransactionLog", mappedBy="categoryId")
+     * @ORM\OneToMany(targetEntity="Transaction", mappedBy="categoryId")
      */
-    protected $transactionLogs;
+    protected $transactions;
 
     public function __construct() {
-        $this->transactionLogs = new ArrayCollection();
+        $this->transactions = new ArrayCollection();
     }
 
     /**
-     * Add transactionLogs
+     * Add transactions
      *
-     * @param TransactionLog $transactionLogs
+     * @param Transaction $transactions
      * @return Category
      */
-    public function addTransactionLog(TransactionLog $transactionLogs)
+    public function addTransactionLog(Transaction $transactions)
     {
-        $this->transactionLogs[] = $transactionLogs;
+        $this->transactions[] = $transactions;
 
         return $this;
     }
 
     /**
-     * Remove transactionLogs
+     * Remove transactions
      *
-     * @param TransactionLog $transactionLogs
+     * @param Transaction $transactions
      * @return Category
      */
-    public function removeTransactionLog(TransactionLog $transactionLogs)
+    public function removeTransaction(Transaction $transactions)
     {
-        $this->transactionLogs->removeElement($transactionLogs);
+        $this->transactions->removeElement($transactions);
 
         return $this;
     }
 
     /**
-     * Get transactionLogs
+     * Get transactions
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getTransactionLogs()
+    public function getTransactions()
     {
-        return $this->transactionLogs;
+        return $this->transactions;
     }
 
 

@@ -86,13 +86,13 @@ class Transaction
     protected $sourceAccountId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Account", inversedBy="destionationTransactions")
+     * @ORM\ManyToOne(targetEntity="Account", inversedBy="destinationTransactions")
      * @ORM\JoinColumn(name="destinationAccountId", referencedColumnName="accountId", nullable=true)
      */
     protected $destinationAccountId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="transactionLogs")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="transactions")
      * @ORM\JoinColumn(name="categoryId", referencedColumnName="categoryId", nullable=true)
      */
     protected $categoryId;

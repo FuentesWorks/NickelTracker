@@ -5,9 +5,7 @@ namespace FuentesWorks\NickelTrackerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use FuentesWorks\NickelTrackerBundle\Entity\TransactionLog;
-use FuentesWorks\NickelTrackerBundle\Entity\TransferLog;
-use FuentesWorks\NickelTrackerBundle\Entity\TransactionInterface;
+use FuentesWorks\NickelTrackerBundle\Entity\Transaction;
 
 /**
  * @ORM\Entity
@@ -48,134 +46,92 @@ class Account
     #########################
 
     /**
-     * @ORM\OneToMany(targetEntity="TransactionLog", mappedBy="accountId")
+     * @ORM\OneToMany(targetEntity="Transaction", mappedBy="sourceAccountId")
      */
-    protected $transactionLogs;
+    protected $sourceTransactions;
 
     /**
-     * @ORM\OneToMany(targetEntity="TransferLog", mappedBy="sourceId")
+     * @ORM\OneToMany(targetEntity="Transaction", mappedBy="destinationAccountId")
      */
-    protected $sourceTransferLogs;
-
-    /**
-     * @ORM\OneToMany(targetEntity="TransferLog", mappedBy="destinationId")
-     */
-    protected $destinationTransferLogs;
+    protected $destinationTransactions;
 
     public function __construct() {
-        $this->transactionLogs = new ArrayCollection();
-        $this->sourceTransferLogs = new ArrayCollection();
-        $this->destinationTransferLogs = new ArrayCollection();
+        $this->sourceTransactions = new ArrayCollection();
+        $this->destinationTransactions = new ArrayCollection();
     }
 
     /**
-     * Add transactionLogs
+     * Add sourceTransactions
      *
-     * @param TransactionLog $transactionLogs
+     * @param Transaction $sourceTransactions
      * @return Account
      */
-    public function addTransactionLog(TransactionLog $transactionLogs)
+    public function addSourceTransaction(Transaction $sourceTransactions)
     {
-        $this->transactionLogs[] = $transactionLogs;
+        $this->sourceTransactions[] = $sourceTransactions;
 
         return $this;
     }
 
     /**
-     * Remove transactionLogs
+     * Remove sourceTransactions
      *
-     * @param TransactionLog $transactionLogs
+     * @param Transaction $sourceTransactions
      * @return Account
      */
-    public function removeTransactionLog(TransactionLog $transactionLogs)
+    public function removeSourceTransaction(Transaction $sourceTransactions)
     {
-        $this->transactionLogs->removeElement($transactionLogs);
+        $this->sourceTransactions->removeElement($sourceTransactions);
 
         return $this;
     }
 
     /**
-     * Get transactionLogs
+     * Get sourceTransactions
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getTransactionLogs()
+    public function getSourceTransactions()
     {
-        return $this->transactionLogs;
+        return $this->sourceTransactions;
     }
 
     /**
-     * Add sourceTransferLogs
+     * Add destinationTransactions
      *
-     * @param TransferLog $sourceTransferLogs
+     * @param Transaction $destinationTransactions
      * @return Account
      */
-    public function addSourceTransferLogs(TransferLog $sourceTransferLogs)
+    public function addDestinationTransaction(Transaction $destinationTransactions)
     {
-        $this->sourceTransferLogs[] = $sourceTransferLogs;
+        $this->destinationTransactions[] = $destinationTransactions;
 
         return $this;
     }
 
     /**
-     * Remove sourceTransferLogs
+     * Remove sourceTransactions
      *
-     * @param TransferLog $sourceTransferLogs
+     * @param Transaction $destinationTransactions
      * @return Account
      */
-    public function removeSourceTransferLogs(TransferLog $sourceTransferLogs)
+    public function removeDestinationTransaction(Transaction $destinationTransactions)
     {
-        $this->sourceTransferLogs->removeElement($sourceTransferLogs);
+        $this->destinationTransactions->removeElement($destinationTransactions);
 
         return $this;
     }
 
     /**
-     * Get sourceTransferLogs
+     * Get destinationTransactions
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSourceTransferLogs()
+    public function getDestinationTransactions()
     {
-        return $this->sourceTransferLogs;
+        return $this->destinationTransactions;
     }
-
-    /**
-     * Add destinationTransferLogs
-     *
-     * @param TransferLog $destinationTransferLogs
-     * @return Account
-     */
-    public function addDestinationTransferLogs(TransferLog $destinationTransferLogs)
-    {
-        $this->destinationTransferLogs[] = $destinationTransferLogs;
-
-        return $this;
-    }
-
-    /**
-     * Remove destinationTransferLogs
-     *
-     * @param TransferLog $destinationTransferLogs
-     * @return Account
-     */
-    public function removeDestinationTransferLogs(TransferLog $destinationTransferLogs)
-    {
-        $this->destinationTransferLogs->removeElement($destinationTransferLogs);
-
-        return $this;
-    }
-
-    /**
-     * Get destinationTransferLogs
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDestinationTransferLogs()
-    {
-        return $this->destinationTransferLogs;
-    }
-
+    
 
     #########################
     ##   SPECIAL METHODS   ##
