@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use FuentesWorks\NickelTrackerBundle\Entity\Transaction;
 
 
-class CreateAdminCommand extends ContainerAwareCommand
+class UpdateTransactionEntityCommand extends ContainerAwareCommand
 {
 
     protected function configure()
