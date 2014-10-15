@@ -44,6 +44,15 @@
                 </tbody>
             </table>
         </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Total:</strong> ${{ total|number_format(0) }}</div>
+            <div class="panel-body">
+                <div class="col-sm-3"><strong>Cash:</strong> ${{ totals['M']|number_format(0) }}</div>
+                <div class="col-sm-3"><strong>Debit:</strong> ${{ totals['D']|number_format(0) }}</div>
+                <div class="col-sm-3"><strong>Credit:</strong> ${{ totals['C']|number_format(0) }}</div>
+                <div class="col-sm-3"><strong>Savings:</strong> ${{ totals['S']|number_format(0) }}</div>
+            </div>
+        </div>
     {% else %}
         <p class="text-center">no accounts found</p>
     {% endif %}

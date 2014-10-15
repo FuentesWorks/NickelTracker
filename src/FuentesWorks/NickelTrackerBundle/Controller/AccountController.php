@@ -14,8 +14,19 @@ class AccountController extends NickelTrackerController
 {
     public function listAction()
     {
-        // Just render the template, the $accounts list is automatically injected.
-        return $this->render('FuentesWorksNickelTrackerBundle:Account:list.html.twig');
+        $accounts = $this->getDoctrine()->getRepository('FuentesWorksNickelTrackerBundle:Account')
+            ->findAll();
+
+        $totals = array('D' => 0, 'C' => 0, 'S' => 0, 'M' => 0);
+        $total = 0;
+        foreach($accounts as $a){
+            /** @var Account $a */
+            $totals[$a->getType()] += $a->getBalance();
+            $total += $a->getBalance();
+        }
+
+        return $this->render('FuentesWorksNickelTrackerBundle:Account:list.html.twig',
+            array('accounts' => $accounts, 'totals' => $totals, 'total' => $total));
     }
 
     public function newAction()
