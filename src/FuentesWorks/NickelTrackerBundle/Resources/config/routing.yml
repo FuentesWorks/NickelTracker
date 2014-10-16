@@ -136,3 +136,8 @@ fuentesworks_nickeltracker_transaction_filter:
 fuentesworks_nickeltracker_transaction_list:
     pattern:    /transactions/{status}
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:list, status: null }
+
+## Report
+fuentesworks_nickeltracker_report_list:
+    pattern:    /reports
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Report:list, }
