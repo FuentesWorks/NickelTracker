@@ -26,7 +26,7 @@
                 </thead>
                 <tbody>
                 {% for category in categories %}
-                <tr>
+                <tr{% if balance[category.categoryId] is defined and balance[category.categoryId] > category.budget %} class="warning"{% endif %}>
                     <td><a href="{{ path('fuentesworks_nickeltracker_category_view', {'id': category.categoryId}) }}">
                         {{ category.name }}</a></td>
                     <td>${{ category.budget|number_format(0, '.', ',') }}</td>
