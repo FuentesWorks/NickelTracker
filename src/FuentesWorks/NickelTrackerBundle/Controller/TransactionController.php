@@ -74,7 +74,7 @@ class TransactionController extends NickelTrackerController
             ->setMaxResults(50);
 
         if($accountId) {
-            $qbTransactions->andWhere('t.accountId = :accountId')
+            $qbTransactions->andWhere('t.sourceAccountId = :accountId OR t.destinationAccountId = :accountId')
                 ->setParameter('accountId', $accountId);
         }
 
