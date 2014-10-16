@@ -185,7 +185,7 @@ SELECT
 			WHEN t.type = 'I' THEN t.amount
 			WHEN t.type = 'E' THEN t.amount*-1
 			ELSE 0
-		END) as `income`
+		END) as `amount`
 FROM Transactions as t
 GROUP BY t.sourceAccountId;
 ENDSQL;
