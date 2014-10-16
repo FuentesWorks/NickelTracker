@@ -6,9 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use FuentesWorks\NickelTrackerBundle\Entity\TransactionInterface;
-use FuentesWorks\NickelTrackerBundle\Entity\TransactionLog;
-use FuentesWorks\NickelTrackerBundle\Entity\TransferLog;
+use FuentesWorks\NickelTrackerBundle\Entity\Transaction;
 use FuentesWorks\NickelTrackerBundle\Entity\Account;
 use FuentesWorks\NickelTrackerBundle\Entity\Category;
 
@@ -18,27 +16,13 @@ class TransactionController extends NickelTrackerController
     {
         // Load Recent Transactions
         $repository = $this->getDoctrine()
-            ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog');
+            ->getRepository('FuentesWorksNickelTrackerBundle:Transaction');
         $query = $repository->createQueryBuilder('t')
             ->setMaxResults(50)
             ->orderBy('t.date', 'DESC')
             ->addOrderby('t.transactionLogId', 'ASC')
             ->getQuery();
         $transactions = $query->getResult();
-
-        $repository = $this->getDoctrine()
-            ->getRepository('FuentesWorksNickelTrackerBundle:TransferLog');
-        $query = $repository->createQueryBuilder('t')
-            ->setMaxResults(50)
-            ->orderBy('t.date', 'DESC')
-            ->addOrderby('t.transferLogId', 'ASC')
-            ->getQuery();
-        $transfers = $query->getResult();
-
-        // Merge both arrays and sort
-        $transactions = array_merge($transactions, $transfers);
-        uasort($transactions, array($this, 'compareFunction'));
-
 
         if($status)
         {
@@ -88,47 +72,30 @@ class TransactionController extends NickelTrackerController
             ->orderBy('t.date', 'DESC')
             ->setMaxResults(50);
 
-        /* @var \Doctrine\ORM\QueryBuilder $qbTransfers */
-        $qbTransfers = $this->getDoctrine()
-            ->getRepository('FuentesWorksNickelTrackerBundle:TransferLog')
-            ->createQueryBuilder('t')
-            ->orderBy('t.date', 'DESC')
-            ->setMaxResults(50);
-
         if($accountId) {
             $qbTransactions->andWhere('t.accountId = :accountId')
-                ->setParameter('accountId', $accountId);
-            $qbTransfers->andWhere('t.sourceId = :accountId OR t.destinationId = :accountId')
                 ->setParameter('accountId', $accountId);
         }
 
         if($categoryId) {
             $qbTransactions->andWhere('t.categoryId = :categoryId')
                 ->setParameter('categoryId', $categoryId);
-            // There are no TransferLogs that have categories.  Invalidate the query.
-            $qbTransfers->andWhere('1 = 2');
         }
 
         if($fromDate) {
             $qbTransactions->andWhere('t.date >= :fromDate')
-                ->setParameter('fromDate', $fromDate);
-            $qbTransfers->andWhere('t.date >= :fromDate')
                 ->setParameter('fromDate', $fromDate);
         }
 
         if($toDate) {
             $qbTransactions->andWhere('t.date <= :toDate')
                 ->setParameter('toDate', $toDate);
-            $qbTransfers->andWhere('t.date <= :toDate')
-                ->setParameter('toDate', $toDate);
         }
 
         $transactions = $qbTransactions->getQuery()->getResult();
-        $transfers = $qbTransfers->getQuery()->getResult();
 
-        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:filter.html.twig',
+        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:list.html.twig',
             array('transactions' => $transactions,
-                  'transfers' => $transfers,
                   'params' => $params));
     }
 

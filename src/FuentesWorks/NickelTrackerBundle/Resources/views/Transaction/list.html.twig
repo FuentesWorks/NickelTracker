@@ -18,37 +18,59 @@
                         <div class="form-group">
                             <div class="col-lg-3">
                                 <select class="form-control" name="accountId">
-                                    <option value="0" selected="selected">-- Account --</option>
+                                    <option value="0" selected="selected"
+                                            {% if params is defined and params.accountId == 0 %}selected="selected"{% endif %}
+                                            >-- Account --
+                                    </option>
                                     {% for account in accounts %}
-                                        <option value="{{ account.accountId }}">{{ account.name }}</option>
+                                        <option value="{{ account.accountId }}"
+                                                {% if params is defined and params.accountId == account.accountId %}selected="selected"{% endif %}
+                                                >{{ account.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                             <div class="col-lg-3">
                                 <select class="form-control" name="categoryId">
-                                    <option value="0" selected="selected">-- Category --</option>
+                                    <option value="0" selected="selected"
+                                            {% if params is defined and params.categoryId == 0 %}selected="selected"{% endif %}
+                                            >-- Category --
+                                    </option>
                                     {% for category in categories %}
-                                        <option value="{{ category.categoryId }}">{{ category.name }}</option>
+                                        <option value="{{ category.categoryId }}"
+                                                {% if params is defined and params.categoryId == category.categoryId %}selected="selected"{% endif %}
+                                                >{{ category.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                             <div class="col-lg-3">
                                 <div class="input-group date" id="form_datetime_from" data-date-format="yyyy-mm-dd">
                                     <input class="form-control" id="fromDate" name="fromDate" size="16" type="text"
-                                           value="" placeholder="-- From --" readonly />
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                            {% if params is defined and params.fromDate is defined and params.fromDate %}
+                                                value="{{ params.fromDate|date('Y-m-d') }}"
+                                            {% else %}
+                                                value=""
+                                            {% endif %}
+                                           placeholder="-- From --" readonly />
+                                    <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-remove"></span></span>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="input-group date" id="form_datetime_to" data-date-format="yyyy-mm-dd">
                                     <input class="form-control" id="toDate" name="toDate" size="16" type="text"
-                                           value="" placeholder="-- To --" readonly />
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                            {% if params is defined and params.toDate %}
+                                                value="{{ params.toDate|date('Y-m-d') }}"
+                                            {% else %}
+                                                value=""
+                                            {% endif %}
+                                           placeholder="-- To --" readonly />
+                                    <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-remove"></span></span>
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                                 </div>
                             </div>
-                        </div>
+                            </div>
                         <div class="form-group">
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-default btn-block">Filter</button>
@@ -62,13 +84,14 @@
     <!-- end: filters -->
 
     {% if msg is defined %}
-    <div class="alert alert-dismissable alert-{{ msg.type }}">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        {{ msg.text|raw }}
-    </div>
+        <div class="alert alert-dismissable alert-{{ msg.type }}">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ msg.text|raw }}
+        </div>
     {% endif %}
 
     <!-- start: transaction list -->
+    <h3>Transactions</h3>
     {% if transactions %}
         <div class="table-responsive">
             <table class="table table-striped">
@@ -89,11 +112,11 @@
                     <td>{{ transaction.date|date('Y-M-d') }}</td>
                     <td>
                         {% if transaction.getType() == 'I' %}
-                            Income
+                            <span class="glyphicon glyphicon-plus"></span> Income
                         {% elseif transaction.getType() == 'E' %}
-                            Expense
+                            <span class="glyphicon glyphicon-minus"></span> Expense
                         {% elseif transaction.getType() == 'T' %}
-                            Transfer
+                            <span class="glyphicon glyphicon-arrow-right"></span> Transfer
                         {% endif %}
                     </td>
                     <td>
@@ -119,9 +142,10 @@
         </div>
         <p class="text-center">showing the latest 50 transactions</p>
     {% else %}
-        <p class="text-center">no transactions found</p>
+        <p><strong>Woah!</strong> No transactions found.</p>
     {% endif %}
     <!-- end: transaction list -->
+    
 </div>
 <!-- end: content -->
 

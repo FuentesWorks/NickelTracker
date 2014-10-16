@@ -55,6 +55,17 @@ class Transaction
     ##   SPECIAL METHODS   ##
     #########################
 
+    public function getAccountName()
+    {
+        $s = $this->getSourceAccountId()->getName();
+
+        if($this->type == 'T') {
+            $s .= ' => ' . $this->getDestinationAccountId()->getName();
+        }
+
+        return $s;
+    }
+
     public function getSourceAccountName()
     {
         return $this->getSourceAccountId()->getName();
