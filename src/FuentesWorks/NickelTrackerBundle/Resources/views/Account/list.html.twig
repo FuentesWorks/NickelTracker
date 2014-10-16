@@ -14,6 +14,7 @@
 
     <!-- start: accounts list -->
     {% if accounts %}
+        {% if totals is defined %}
         <div class="panel panel-default">
             {#<div class="panel-heading"><strong>Totals</strong> <span class="pull-right">${{ total|number_format(0) }}</span></div>#}
             <div class="panel-body">
@@ -23,6 +24,8 @@
                 <div class="col-sm-3"><strong>Savings:</strong> ${{ totals['S']|number_format(0) }}</div>
             </div>
         </div>
+        {% endif %}
+
         <div class="table-responsive">
             <table class="table">
                 <thead>
