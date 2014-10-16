@@ -299,35 +299,27 @@ class TransactionController extends NickelTrackerController
             throw $this->createNotFoundException('No GlobalId provided or invalid');
         }
 
-        if($globalId[0] == 'T') {
-            // TransferLog
-            $id = substr($globalId, 1);
-            /* @var TransferLog $trans */
-            $trans = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\TransferLog')
-                ->find( $id );
-
-            // Revert balance changes
-            $source = $trans->getSourceId();
-            $source->revertBalance($trans);
-
-            $destination = $trans->getDestinationId();
-            $destination->revertBalance($trans);
-
-        } else {
-            // TransactionLog
-            $id = substr($globalId, 1);
-            /* @var TransactionLog $trans */
-            $trans = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\TransactionLog')
-                ->find( $id );
-
-            // Revert balance changes
-            $source = $trans->getAccountId();
-            $source->revertBalance($trans);
-        }
+        $id = substr($globalId, 1);
+        /* @var Transaction $trans */
+        $trans = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\Transaction')
+            ->find( $id );
 
         if(!$trans)
         {
             throw $this->createNotFoundException('Could not find log with ID: ' . $globalId );
+        }
+
+        if($trans->getType() == 'T') {
+            // Revert balance changes
+            $source = $trans->getSourceAccountId();
+            $source->revertBalance($trans);
+
+            $destination = $trans->getDestinationAccountId();
+            $destination->revertBalance($trans);
+        } else {
+            // Revert balance changes
+            $source = $trans->getSourceAccountId();
+            $source->revertBalance($trans);
         }
 
         $em->remove($trans);
