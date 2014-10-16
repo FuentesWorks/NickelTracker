@@ -67,7 +67,7 @@ class TransactionController extends NickelTrackerController
 
         /* @var \Doctrine\ORM\QueryBuilder $qbTransactions */
         $qbTransactions = $this->getDoctrine()
-            ->getRepository('FuentesWorksNickelTrackerBundle:TransactionLog')
+            ->getRepository('FuentesWorksNickelTrackerBundle:Transaction')
             ->createQueryBuilder('t')
             ->orderBy('t.date', 'DESC')
             ->addOrderby('t.transactionId', 'ASC')
@@ -111,19 +111,10 @@ class TransactionController extends NickelTrackerController
             throw $this->createNotFoundException('No GlobalId provided or invalid');
         }
 
-        if($gid[0] == 'T') {
-            // TransferLog
-            $id = substr($gid, 1);
-            /* @var TransferLog $trans */
-            $trans = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\TransferLog')
-                ->find( $id );
-        } else {
-            // TransactionLog
-            $id = substr($gid, 1);
-            /* @var TransactionLog $trans */
-            $trans = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\TransactionLog')
-                ->find( $id );
-        }
+        $id = substr($gid, 1);
+        /** @var Transaction $trans */
+        $trans = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\Transaction')
+            ->find( $id );
 
         if(!$trans)
         {
@@ -179,6 +170,7 @@ class TransactionController extends NickelTrackerController
         {
             if(!$request->request->has($param) || !$request->request->get($param))
             {
+                // TODO: Use FlashBags!
                 return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_new_income', array('status' => 'error')));
             }
         }
@@ -193,10 +185,11 @@ class TransactionController extends NickelTrackerController
         //$category = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\Category')
         //    ->find( $request->request->get('categoryId') );
 
-        $trans = new TransactionLog();
+        $trans = new Transaction();
         $trans->setType('I');
-        $trans->setAccountId($account);
-        //$trans->setCategoryId($category);
+        $trans->setSourceAccountId($account);
+        $trans->setDestinationAccountId(null);
+        $trans->setCategoryId(null);
 
         $trans->setDate(new \DateTime($request->request->get('date')));
         $trans->setAmount($request->request->get('amount'));
@@ -219,6 +212,7 @@ class TransactionController extends NickelTrackerController
         {
             if(!$request->request->has($param) || !$request->request->get($param))
             {
+                // TODO: Use FlashBags!
                 return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_new_expense', array('status' => 'error')));
             }
         }
@@ -233,9 +227,10 @@ class TransactionController extends NickelTrackerController
         $category = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\Category')
             ->find( $request->request->get('categoryId') );
 
-        $trans = new TransactionLog();
+        $trans = new Transaction();
         $trans->setType('E');
-        $trans->setAccountId($account);
+        $trans->setSourceAccountId($account);
+        $trans->setDestinationAccountId(null);
         $trans->setCategoryId($category);
 
         $trans->setDate(new \DateTime($request->request->get('date')));
@@ -273,9 +268,10 @@ class TransactionController extends NickelTrackerController
         $destination = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\Account')
             ->find( $request->request->get('destinationId') );
 
-        $trans = new TransferLog();
-        $trans->setSourceId($source);
-        $trans->setDestinationId($destination);
+        $trans = new Transaction();
+        $trans->setSourceAccountId($source);
+        $trans->setDestinationAccountId($destination);
+        $trans->setCategoryId(null);
 
         $trans->setDate(new \DateTime($request->request->get('date')));
         $trans->setAmount($request->request->get('amount'));
@@ -338,14 +334,6 @@ class TransactionController extends NickelTrackerController
         $em->flush();
 
         return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_transaction_list', array('status' => 'del')));
-    }
-
-    private function compareFunction(TransactionInterface $a, TransactionInterface $b){
-        if ($a->getDate() == $b->getDate()) {
-            return 0;
-        }
-        //return ($a->getDate() < $b->getDate()) ? -1 : 1; // low to high
-        return ($a->getDate() > $b->getDate()) ? -1 : 1; // high to low
     }
 
 }
