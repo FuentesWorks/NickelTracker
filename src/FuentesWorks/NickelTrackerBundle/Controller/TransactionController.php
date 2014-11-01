@@ -103,7 +103,6 @@ class TransactionController extends NickelTrackerController
     public function viewAction(Request $request, $gid)
     {
         $doctrine = $this->getDoctrine();
-        $em = $doctrine->getManager();
 
         if(!$gid || !in_array($gid[0], array('T', 'I', 'E')) )
         {
@@ -262,11 +261,16 @@ class TransactionController extends NickelTrackerController
         $em = $doctrine->getManager();
 
         /* @var Account $source */
-        $source = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\Account')
+        $source = $doctrine->getRepository('\FuentesWorks\NickelTrackerBundle\Entity\Account')
             ->find( $request->request->get('sourceId') );
         /* @var Account $destination */
-        $destination = $doctrine->getRepository('FuentesWorks\NickelTrackerBundle\Entity\Account')
+        $destination = $doctrine->getRepository('\FuentesWorks\NickelTrackerBundle\Entity\Account')
             ->find( $request->request->get('destinationId') );
+
+        if(!$source || !$destination){
+            // Could not load accounts
+            return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_new_transfer', array('status' => 'error')));
+        }
 
         $trans = new Transaction();
         $trans->setSourceAccountId($source);
