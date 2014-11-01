@@ -60,7 +60,7 @@ class Transaction
         $s = $this->getSourceAccountId()->getName();
 
         if($this->type == 'T') {
-            $s .= ' => ' . $this->getDestinationAccountId()->getName();
+            $s .= ' -> ' . $this->getDestinationAccountId()->getName();
         }
 
         return $s;
