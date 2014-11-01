@@ -100,6 +100,42 @@ class TransactionController extends NickelTrackerController
                   'params' => $params));
     }
 
+    public function searchAction(Request $request)
+    {
+        if($request->getMethod() != 'POST') {
+            return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_transaction_list'));
+        }
+
+        // Get parameters from request
+        $search = $request->request->get('search');
+        $keywords = explode(' ', $search);
+
+        if(!$search) {
+            // No search terms were inputted
+            return $this->redirect($this->generateUrl('fuentesworks_nickeltracker_transaction_list'));
+        }
+
+        /* @var \Doctrine\ORM\QueryBuilder $qbTransactions */
+        $qbTransactions = $this->getDoctrine()
+            ->getRepository('FuentesWorksNickelTrackerBundle:Transaction')
+            ->createQueryBuilder('t')
+            ->orderBy('t.date', 'DESC')
+            ->addOrderby('t.transactionId', 'ASC')
+            ->setMaxResults(50);
+
+        foreach($keywords as $index => $keyword)
+        {
+            $qbTransactions->orWhere('t.description LIKE :keyword' . $index . ' OR t.details LIKE :keyword' . $index )
+                ->setParameter('keyword' . $index, '%' . $keyword . '%');
+        }
+
+        $transactions = $qbTransactions->getQuery()->getResult();
+
+        return $this->render('FuentesWorksNickelTrackerBundle:Transaction:list.html.twig',
+            array('transactions' => $transactions,
+                'search' => $search));
+    }
+
     public function viewAction(Request $request, $gid, $mode)
     {
         $doctrine = $this->getDoctrine();

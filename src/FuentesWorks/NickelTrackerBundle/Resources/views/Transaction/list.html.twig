@@ -17,7 +17,7 @@
                             <strong><span class="glyphicon glyphicon-filter"></span>&nbsp;&nbsp;Filters</strong>
                         </a>
                     </div>
-                    <div id="collapse-filters" class="panel-collapse collapse">
+                    <div id="collapse-filters" class="panel-collapse{% if params is not defined %} collapse{% endif %}">
                         <div class="panel-body">
                             <form class="form-horizontal" role="form" action="{{ path('fuentesworks_nickeltracker_transaction_filter') }}"
                                   method="post">
@@ -94,7 +94,7 @@
                             <strong><span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;Search</strong>
                         </a>
                     </div>
-                    <div id="collapse-search" class="panel-collapse collapse">
+                    <div id="collapse-search" class="panel-collapse{% if search is not defined %} collapse{% endif %}">
                         <div class="panel-body">
                             <form class="form-horizontal" role="form" action="{{ path('fuentesworks_nickeltracker_transaction_search') }}"
                                   method="post">
@@ -102,7 +102,8 @@
                                     <div class="col-lg-6">
                                         <div class="input-group">
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                                            <input type="text" class="form-control" placeholder="Enter search keywords.." name="search">
+                                            <input type="text" class="form-control" placeholder="Enter search keywords.." name="search"
+                                                    {% if search is defined %}value="{{ search }}"{% endif %}>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
