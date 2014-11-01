@@ -273,6 +273,7 @@ class TransactionController extends NickelTrackerController
         }
 
         $trans = new Transaction();
+        $trans->setType('T');
         $trans->setSourceAccountId($source);
         $trans->setDestinationAccountId($destination);
         $trans->setCategoryId(null);
