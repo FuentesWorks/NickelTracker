@@ -85,6 +85,11 @@ class Transaction
         return $this->type . $this->transactionId;
     }
 
+    public static function getAvailableTypes()
+    {
+        return array('I', 'E', 'T');
+    }
+
 
     #########################
     ## OBJECT RELATIONSHIP ##

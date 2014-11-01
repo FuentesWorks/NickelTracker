@@ -122,7 +122,11 @@ fuentesworks_nickeltracker_category_list:
 ## Transaction
 fuentesworks_nickeltracker_transaction_view:
     pattern:    /transactions/view/{gid}
-    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:view }
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:view, mode: 'view' }
+
+fuentesworks_nickeltracker_transaction_edit:
+    pattern:    /transactions/edit/{gid}
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:view, mode: 'edit' }
 
 fuentesworks_nickeltracker_transaction_delete:
     pattern:    /transactions/delete
@@ -132,6 +136,10 @@ fuentesworks_nickeltracker_transaction_delete:
 fuentesworks_nickeltracker_transaction_filter:
     pattern:    /transactions/filter
     defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:filter }
+
+fuentesworks_nickeltracker_transaction_search:
+    pattern:    /transactions/search
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Transaction:search }
 
 fuentesworks_nickeltracker_transaction_list:
     pattern:    /transactions/{status}

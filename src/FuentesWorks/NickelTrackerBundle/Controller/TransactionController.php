@@ -100,11 +100,18 @@ class TransactionController extends NickelTrackerController
                   'params' => $params));
     }
 
-    public function viewAction(Request $request, $gid)
+    public function viewAction(Request $request, $gid, $mode)
     {
         $doctrine = $this->getDoctrine();
+        $message = array();
 
-        if(!$gid || !in_array($gid[0], array('T', 'I', 'E')) )
+        if( !in_array($mode, array('view', 'edit')) )
+        {
+            // Invalid mode selected
+            throw $this->createNotFoundException('Invalid view mode selected');
+        }
+
+        if(!$gid || !in_array($gid[0], Transaction::getAvailableTypes()) )
         {
             // No Global ID fround
             throw $this->createNotFoundException('No GlobalId provided or invalid');
@@ -121,7 +128,12 @@ class TransactionController extends NickelTrackerController
         }
 
         return $this->render('FuentesWorksNickelTrackerBundle:Transaction:details.html.twig',
-            array('transaction' => $trans));
+            array('transaction' => $trans, 'message' => $message, 'mode' => $mode));
+    }
+
+    public function editProcessAction(Request $request)
+    {
+
     }
 
     public function newIncomeAction(Request $request, $status)
