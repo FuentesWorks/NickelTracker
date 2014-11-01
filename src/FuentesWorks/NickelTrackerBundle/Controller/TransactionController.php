@@ -125,7 +125,7 @@ class TransactionController extends NickelTrackerController
 
         foreach($keywords as $index => $keyword)
         {
-            $qbTransactions->orWhere('t.description LIKE :keyword' . $index . ' OR t.details LIKE :keyword' . $index )
+            $qbTransactions->andWhere('t.description LIKE :keyword' . $index . ' OR t.details LIKE :keyword' . $index )
                 ->setParameter('keyword' . $index, '%' . $keyword . '%');
         }
 
