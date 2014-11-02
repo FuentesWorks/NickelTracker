@@ -12,13 +12,15 @@ use FuentesWorks\NickelTrackerBundle\Entity\Category;
 
 class TransactionController extends NickelTrackerController
 {
+    const MAX_RESULTS = 100;
+
     public function listAction(Request $request, $status)
     {
         // Load Recent Transactions
         $repository = $this->getDoctrine()
             ->getRepository('FuentesWorksNickelTrackerBundle:Transaction');
         $query = $repository->createQueryBuilder('t')
-            ->setMaxResults(50)
+            ->setMaxResults(self::MAX_RESULTS)
             ->orderBy('t.date', 'DESC')
             ->addOrderby('t.transactionId', 'ASC')
             ->getQuery();
@@ -71,7 +73,7 @@ class TransactionController extends NickelTrackerController
             ->createQueryBuilder('t')
             ->orderBy('t.date', 'DESC')
             ->addOrderby('t.transactionId', 'ASC')
-            ->setMaxResults(50);
+            ->setMaxResults(self::MAX_RESULTS);
 
         if($accountId) {
             $qbTransactions->andWhere('t.sourceAccountId = :accountId OR t.destinationAccountId = :accountId')
@@ -121,7 +123,7 @@ class TransactionController extends NickelTrackerController
             ->createQueryBuilder('t')
             ->orderBy('t.date', 'DESC')
             ->addOrderby('t.transactionId', 'ASC')
-            ->setMaxResults(50);
+            ->setMaxResults(self::MAX_RESULTS);
 
         foreach($keywords as $index => $keyword)
         {
