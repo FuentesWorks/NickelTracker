@@ -1,0 +1,41 @@
+{{ include('FuentesWorksNickelTrackerBundle:Layout:header.html.twig') }}
+{{ include('FuentesWorksNickelTrackerBundle:Layout:sidebar.html.twig', {'active': 'reports'}) }}
+
+<!-- start: content -->
+<div class="col-xs-12 col-sm-9">
+    <h1 class="page-header">Report: Monthly Balance</h1>
+
+    <!-- start: transaction list -->
+    {% if results %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Income</th>
+                    <th>Expense</th>
+                    <th>Balance</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for result in results %}
+                <tr>
+                    <td>{{ date(result.year ~ '-' ~ result.month ~ '-01') |date('Y M') }}</td>
+                    <td>{{ date(result.year ~ '-' ~ result.month ~ '-01') |date('Y M') }}</td>
+                    <td>${{ result.income|number_format(0, '.', ',') }}</td>
+                    <td>${{ result.expense|number_format(0, '.', ',') }}</td>
+                    <td>${{ (result.income - result.expense)|number_format(0, '.', ',') }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p><strong>Woah!</strong> No transactions found.</p>
+    {% endif %}
+    <!-- end: transaction list -->
+
+</div>
+<!-- end: content -->
+
+{{ include('FuentesWorksNickelTrackerBundle:Layout:footer.html.twig') }}
