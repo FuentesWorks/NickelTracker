@@ -26,7 +26,7 @@
                     <td>${{ result.expense|number_format(0, '.', ',') }}</td>
                     <td>${{ (result.income - result.expense)|number_format(0, '.', ',') }}</td>
                     <td>{% if result.income > 0 %}
-                        {{ ((result.income - result.expense) / result.income)|number_format(2, '.', ',') }}%
+                        {{ ((result.income - result.expense) * 100 / result.income)|number_format(2, '.', ',') }}%
                         {% else %}
                         0%
                         {% endif %}
