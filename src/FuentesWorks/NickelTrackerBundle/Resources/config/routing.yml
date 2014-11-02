@@ -148,4 +148,8 @@ fuentesworks_nickeltracker_transaction_list:
 ## Report
 fuentesworks_nickeltracker_report_list:
     pattern:    /reports
-    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Report:list, }
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Report:list }
+
+fuentesworks_nickeltracker_report_monthly_balance:
+    pattern:    /reports
+    defaults:   { _controller: FuentesWorksNickelTrackerBundle:Report:monthlyBalance }
