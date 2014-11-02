@@ -35,7 +35,8 @@ ENDSQL;
         $stmt->execute();
         $results = $stmt->fetchAll();
 
-        return $this->render('FuentesWorksNickelTrackerBundle:Report:monthlyBalance.html.twig');
+        return $this->render('FuentesWorksNickelTrackerBundle:Report:monthlyBalance.html.twig',
+            array('results' => $results));
     }
 
 
