@@ -21,7 +21,6 @@
                 {% for result in results %}
                 <tr>
                     <td>{{ date(result.year ~ '-' ~ result.month ~ '-01') |date('Y M') }}</td>
-                    <td>{{ date(result.year ~ '-' ~ result.month ~ '-01') |date('Y M') }}</td>
                     <td>${{ result.income|number_format(0, '.', ',') }}</td>
                     <td>${{ result.expense|number_format(0, '.', ',') }}</td>
                     <td>${{ (result.income - result.expense)|number_format(0, '.', ',') }}</td>
