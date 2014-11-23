@@ -40,6 +40,11 @@ class Account
      */
     protected $type;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $creditLimit = 0;
+
 
     #########################
     ## OBJECT RELATIONSHIP ##
@@ -277,7 +282,6 @@ class Account
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -296,7 +300,6 @@ class Account
     public function setType($type)
     {
         $this->type = $type;
-
         return $this;
     }
 
@@ -308,5 +311,22 @@ class Account
         return $this->type;
     }
 
+    /**
+     * @return integer
+     */
+    public function getCreditLimit()
+    {
+        return $this->creditLimit;
+    }
+
+    /**
+     * @param integer $creditLimit
+     * @return Account
+     */
+    public function setCreditLimit($creditLimit)
+    {
+        $this->creditLimit = $creditLimit;
+        return $this;
+    }
 
 }

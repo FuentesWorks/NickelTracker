@@ -48,6 +48,12 @@ class AccountController extends NickelTrackerController
         $account->setName($request->request->get('name'));
         $account->setType($request->request->get('type'));
 
+        if($request->request->get('type') == 'C'){
+            $account->setCreditLimit($request->request->get('creditLimit'));
+        } else {
+            $account->setCreditLimit(null);
+        }
+
         $em->persist($account);
         $em->flush();
 
@@ -114,6 +120,12 @@ class AccountController extends NickelTrackerController
 
         $account->setName($request->request->get('name'));
         $account->setType($request->request->get('type'));
+
+        if($request->request->get('type') == 'C'){
+            $account->setCreditLimit($request->request->get('creditLimit'));
+        } else {
+            $account->setCreditLimit(null);
+        }
 
         $em->persist($account);
         $em->flush();

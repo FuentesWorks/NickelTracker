@@ -84,3 +84,25 @@ $(document).ready(function () {
         $('.row-offcanvas').toggleClass('active')
     });
 });
+
+/* Bind the function to Enable or disable the credit card limit field */
+$(function () {
+    var $select = $("#type");
+
+    if($select.length) {
+        updateCreditLimitStatus();
+        $select.change(updateCreditLimitStatus);
+    }
+});
+
+function updateCreditLimitStatus() {
+    var $field = $("#creditLimit");
+    var $select = $("#type");
+
+    if($select.length && $select.val() == 'C'){
+        $field.removeAttr('disabled');
+    } else {
+        $field.attr('disabled', 'disabled');
+        $field.val('');
+    }
+}
