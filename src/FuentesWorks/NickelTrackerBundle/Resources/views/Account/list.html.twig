@@ -43,7 +43,7 @@
                     <td><a href="{{ path('fuentesworks_nickeltracker_account_view', {'id': account.accountId}) }}">
                         {{ account.name }}</a></td>
                     <td>${{ account.balance|number_format(0, '.', ',') }}
-                    {% if account.type == 'C' %}(${{ (account.creditLimit + account.balance)|number_format(0, '.', ',') }} avail.){% endif %}</td>
+                    {% if account.type == 'C' %} / ${{ (account.creditLimit + account.balance)|number_format(0, '.', ',') }} avail.{% endif %}</td>
                     <td>
                         <form method="post" class="form-horizontal" role="form" action="{{ path('fuentesworks_nickeltracker_transaction_filter') }}">
                             <button type="submit" class="btn btn-default btn-xs" role="button">
