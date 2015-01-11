@@ -2,7 +2,8 @@
 
 ## Assuming a basic LAMP stack running on Ubuntu
 
-chmod +x install.sh
+chmod +x install-full.sh
+chmod +x install-lite.sh
 chmod +x update.sh
 
 echo -e "\e[1m--- Update Repositories ---\e[0m"
